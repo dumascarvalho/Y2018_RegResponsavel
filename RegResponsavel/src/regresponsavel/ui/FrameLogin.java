@@ -1,9 +1,12 @@
 package regresponsavel.ui;
 
 import javax.swing.*;
+import regresponsavel.controller.UsuarioController;
 
 public class FrameLogin extends javax.swing.JFrame {
 
+    private final UsuarioController uc = new UsuarioController();
+    
     public FrameLogin() {
         initComponents();
     }
@@ -21,7 +24,7 @@ public class FrameLogin extends javax.swing.JFrame {
         btFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Seja Bem Vindo(a)!");
+        setTitle("Tela de Login");
         setAlwaysOnTop(true);
         setLocationByPlatform(true);
         setResizable(false);
@@ -98,19 +101,18 @@ public class FrameLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarActionPerformed
-
-        boolean loginSenhaCorreta = true;
         
-        if(loginSenhaCorreta) {
-            JFrame aplicacao = new FramePrincipal();
+        if (uc.autenticar(tfProntuario.getText(), tfSenha.getText())) {
+            JOptionPane.showMessageDialog(this, "Usuário autenticado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            JFrame aplicacao = new FramePrincipal(uc.obter(tfProntuario.getText()));
             aplicacao.setVisible(true);
-            this.setVisible(false);
+            this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Login ou senha inválidos.");
+            JOptionPane.showMessageDialog(this, "Prontuário ou senha estão inválidos.", "Mensagem", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btLogarActionPerformed
 
