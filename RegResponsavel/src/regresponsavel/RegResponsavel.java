@@ -2,7 +2,7 @@ package regresponsavel;
 
 import regresponsavel.ui.*;
 
-public class RegistroResponsavel {
+public class RegResponsavel {
 
     public static void main(String args[]) {
         try {

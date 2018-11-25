@@ -16,8 +16,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         this.setContentPane(p);
         this.setSize(this.getPreferredSize());
         this.pack();
-        this.repaint();
-        this.validate();
         this.setLocationRelativeTo(null);
     }
 
@@ -32,7 +30,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         mnCadastro = new javax.swing.JMenu();
         mnCadastrarNovo = new javax.swing.JMenuItem();
         mnVisualizarAlunos = new javax.swing.JMenuItem();
-        mnAlterarAlunos = new javax.swing.JMenuItem();
         mnRelatorios = new javax.swing.JMenu();
         mnRelatorioAlunos = new javax.swing.JMenuItem();
         mnRelatorioResponsaveisAluno = new javax.swing.JMenuItem();
@@ -82,14 +79,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         mnCadastro.add(mnVisualizarAlunos);
 
-        mnAlterarAlunos.setText("Alterar Cadastro");
-        mnAlterarAlunos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnAlterarAlunosActionPerformed(evt);
-            }
-        });
-        mnCadastro.add(mnAlterarAlunos);
-
         bmBarraMenu.add(mnCadastro);
 
         mnRelatorios.setText("Relatórios");
@@ -112,7 +101,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         mnUsuario.add(mnCadastrarUsuario);
 
-        mnAlterarSenha.setText("Alterar Senha");
+        mnAlterarSenha.setText("Alterar Senha Atual");
         mnAlterarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnAlterarSenhaActionPerformed(evt);
@@ -124,7 +113,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         mnSuperiorSair.setText("Outros");
 
-        mnSair.setText("Encerrar");
+        mnSair.setText("Encerrar Aplicação");
         mnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnSairActionPerformed(evt);
@@ -175,16 +164,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         atualizarTela(panel);
     }//GEN-LAST:event_mnVisualizarAlunosActionPerformed
 
-    private void mnAlterarAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAlterarAlunosActionPerformed
-        JPanel panel = new PanelAlterarAluno();
-        atualizarTela(panel);
-    }//GEN-LAST:event_mnAlterarAlunosActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar bmBarraMenu;
     private javax.swing.JMenuItem jMenuItem1;
-    public static javax.swing.JLabel lbTitulo;
-    private javax.swing.JMenuItem mnAlterarAlunos;
+    private javax.swing.JLabel lbTitulo;
     private javax.swing.JMenuItem mnAlterarSenha;
     private javax.swing.JMenuItem mnCadastrarNovo;
     private javax.swing.JMenuItem mnCadastrarUsuario;

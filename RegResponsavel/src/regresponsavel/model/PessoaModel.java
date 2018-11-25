@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
-public class PessoaModel implements Serializable {
+public class PessoaModel implements Serializable, Comparable<PessoaModel> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,5 +55,10 @@ public class PessoaModel implements Serializable {
 
     public void setCodigoPessoa(int codigoPessoa) {
         this.codigoPessoa = codigoPessoa;
+    }
+    
+    @Override
+    public int compareTo(PessoaModel p) {
+        return this.getNome().compareTo(p.getNome());
     }
 }

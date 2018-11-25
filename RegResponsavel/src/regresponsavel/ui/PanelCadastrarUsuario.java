@@ -1,6 +1,8 @@
 package regresponsavel.ui;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import regresponsavel.controller.UsuarioController;
 import regresponsavel.model.UsuarioModel;
 
@@ -160,12 +162,16 @@ public class PanelCadastrarUsuario extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "As senhas informadas não coincidem!", "Mensagem", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Algum campo está vazio ou em formato inválido.", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Algum campo está vazio ou em formato inválido.\nExceção: " + e, "Mensagem", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-
+        JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        framePrincipal.setContentPane(FramePrincipal.panelCentral);
+        framePrincipal.setSize(FramePrincipal.panelCentral.getSize());
+        framePrincipal.pack();
+        framePrincipal.setLocationRelativeTo(null);
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed

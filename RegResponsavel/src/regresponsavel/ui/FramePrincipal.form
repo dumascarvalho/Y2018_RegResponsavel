@@ -30,14 +30,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnVisualizarAlunosActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnAlterarAlunos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Alterar Cadastro"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnAlterarAlunosActionPerformed"/>
-              </Events>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnRelatorios">
@@ -72,7 +64,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnAlterarSenha">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Alterar Senha"/>
+                <Property name="text" type="java.lang.String" value="Alterar Senha Atual"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnAlterarSenhaActionPerformed"/>
@@ -87,7 +79,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnSair">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Encerrar"/>
+                <Property name="text" type="java.lang.String" value="Encerrar Aplica&#xe7;&#xe3;o"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnSairActionPerformed"/>
@@ -160,9 +152,6 @@
             <Property name="text" type="java.lang.String" value="RegRespons&#xe1;vel "/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

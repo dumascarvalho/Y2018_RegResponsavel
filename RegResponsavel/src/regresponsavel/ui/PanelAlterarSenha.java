@@ -1,6 +1,8 @@
 package regresponsavel.ui;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import regresponsavel.controller.UsuarioController;
 import regresponsavel.model.UsuarioModel;
 
@@ -186,7 +188,11 @@ public class PanelAlterarSenha extends javax.swing.JPanel {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        
+        JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        framePrincipal.setContentPane(FramePrincipal.panelCentral);
+        framePrincipal.setSize(FramePrincipal.panelCentral.getSize());
+        framePrincipal.pack();
+        framePrincipal.setLocationRelativeTo(null);        
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
