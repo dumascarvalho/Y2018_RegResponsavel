@@ -22,7 +22,7 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
         btInserir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastrar Responsável");
+        setTitle("Cadastrar Novo Responsável");
         setResizable(false);
 
         btCancelar.setText("Cancelar");
@@ -134,6 +134,7 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed

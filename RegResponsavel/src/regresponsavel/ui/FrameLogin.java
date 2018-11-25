@@ -108,8 +108,7 @@ public class FrameLogin extends javax.swing.JFrame {
         
         if (uc.autenticar(tfProntuario.getText(), tfSenha.getText())) {
             JOptionPane.showMessageDialog(this, "Usuário autenticado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-            JFrame aplicacao = new FramePrincipal(uc.obter(tfProntuario.getText()));
-            aplicacao.setVisible(true);
+            new FramePrincipal(uc.obter(tfProntuario.getText())).setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Prontuário ou senha estão inválidos.", "Mensagem", JOptionPane.WARNING_MESSAGE);

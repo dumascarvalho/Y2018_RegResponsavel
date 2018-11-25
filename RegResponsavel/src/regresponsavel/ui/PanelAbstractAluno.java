@@ -196,14 +196,12 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     } 
        
     public abstract void acaoAluno();
+    
+    public abstract void acaoCancelar();
         
     private void btAbstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbstractActionPerformed
         acaoAluno();
     }//GEN-LAST:event_btAbstractActionPerformed
-
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-
-    }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         limparCampos();
@@ -218,10 +216,14 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btRemoverActionPerformed
 
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        acaoCancelar();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JButton btAbstract;
     protected javax.swing.JButton btAdicionar;
-    protected javax.swing.JButton btCancelar;
+    private javax.swing.JButton btCancelar;
     protected javax.swing.JButton btLimpar;
     protected javax.swing.JButton btRemover;
     protected javax.swing.JScrollPane jScrollPane1;
