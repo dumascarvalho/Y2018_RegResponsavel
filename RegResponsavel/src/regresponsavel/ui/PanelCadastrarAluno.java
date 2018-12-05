@@ -10,6 +10,7 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
         lbTitulo.setText("Cadastrar Novo Aluno");
         btAbstract.setText("Cadastrar");
         tfProntuario.setEnabled(true);
+        btPesquisar.setVisible(false);
     }
 
     @Override

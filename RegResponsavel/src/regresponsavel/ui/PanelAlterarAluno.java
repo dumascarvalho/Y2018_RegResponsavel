@@ -7,7 +7,12 @@ import regresponsavel.model.AlunoModel;
 public class PanelAlterarAluno extends PanelAbstractAluno {
 
     public PanelAlterarAluno() {
-        
+        super();
+        lbTitulo.setText("Alterar Cadastro do Aluno");
+        btAbstract.setText("Alterar");
+        tfProntuario.setEnabled(true);
+        btPesquisar.setVisible(true);
+        tfProntuario.grabFocus();
     }
 
     public PanelAlterarAluno(AlunoModel a) {
@@ -15,8 +20,10 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         lbTitulo.setText("Alterar Cadastro do Aluno");
         btAbstract.setText("Alterar");
         tfProntuario.setEnabled(false);
+        btPesquisar.setVisible(false);
+        tfNome.grabFocus();
     }
-
+    
     @Override
     public void acaoAluno() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

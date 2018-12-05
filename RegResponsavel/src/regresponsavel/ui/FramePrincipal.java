@@ -29,6 +29,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         bmBarraMenu = new javax.swing.JMenuBar();
         mnCadastro = new javax.swing.JMenu();
         mnCadastrarNovo = new javax.swing.JMenuItem();
+        mmAlterarAluno = new javax.swing.JMenuItem();
         mnVisualizarAlunos = new javax.swing.JMenuItem();
         mnRelatorios = new javax.swing.JMenu();
         mnRelatorioAlunos = new javax.swing.JMenuItem();
@@ -70,6 +71,14 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         mnCadastro.add(mnCadastrarNovo);
+
+        mmAlterarAluno.setText("Alterar Aluno Cadastrado");
+        mmAlterarAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmAlterarAlunoActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mmAlterarAluno);
 
         mnVisualizarAlunos.setText("Visualizar Alunos");
         mnVisualizarAlunos.addActionListener(new java.awt.event.ActionListener() {
@@ -164,10 +173,22 @@ public class FramePrincipal extends javax.swing.JFrame {
         atualizarTela(panel);
     }//GEN-LAST:event_mnVisualizarAlunosActionPerformed
 
+    private void mmAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmAlterarAlunoActionPerformed
+        JFrame alterarAluno = new JFrame();
+        alterarAluno.setContentPane(new PanelAlterarAluno());
+        alterarAluno.setSize(this.getPreferredSize());
+        alterarAluno.pack();
+        alterarAluno.setLocationRelativeTo(null);
+        alterarAluno.setTitle("Alterar Cadastro do Aluno");
+        alterarAluno.setResizable(false);
+        alterarAluno.setVisible(true);
+    }//GEN-LAST:event_mmAlterarAlunoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar bmBarraMenu;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JMenuItem mmAlterarAluno;
     private javax.swing.JMenuItem mnAlterarSenha;
     private javax.swing.JMenuItem mnCadastrarNovo;
     private javax.swing.JMenuItem mnCadastrarUsuario;

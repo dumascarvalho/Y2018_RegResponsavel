@@ -29,6 +29,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         tbResponsaveis = new javax.swing.JTable();
         btAdicionar = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
 
         setToolTipText("");
 
@@ -107,6 +108,13 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
             }
         });
 
+        btPesquisar.setText("Pesquisar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,23 +122,26 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lbNome)
-                            .addGap(18, 18, 18)
-                            .addComponent(tfNome))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lbProntuario)
-                            .addGap(73, 73, 73)
-                            .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbDataNascimento)
-                                .addComponent(lbTelefone))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfDataNascimento)
-                                .addComponent(tfTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lbNome)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfNome))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lbProntuario)
+                                .addGap(73, 73, 73)
+                                .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbDataNascimento)
+                                    .addComponent(lbTelefone))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfDataNascimento)
+                                    .addComponent(tfTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btPesquisar))
                     .addComponent(lbResponsaveis)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,7 +172,8 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbProntuario)
-                    .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDataNascimento)
@@ -198,7 +210,8 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     public abstract void acaoAluno();
     
     public abstract void acaoCancelar();
-        
+    
+
     private void btAbstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbstractActionPerformed
         acaoAluno();
     }//GEN-LAST:event_btAbstractActionPerformed
@@ -220,11 +233,16 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         acaoCancelar();
     }//GEN-LAST:event_btCancelarActionPerformed
 
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+
+    }//GEN-LAST:event_btPesquisarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JButton btAbstract;
     protected javax.swing.JButton btAdicionar;
-    private javax.swing.JButton btCancelar;
+    protected javax.swing.JButton btCancelar;
     protected javax.swing.JButton btLimpar;
+    protected javax.swing.JButton btPesquisar;
     protected javax.swing.JButton btRemover;
     protected javax.swing.JScrollPane jScrollPane1;
     protected javax.swing.JLabel lbDataNascimento;
