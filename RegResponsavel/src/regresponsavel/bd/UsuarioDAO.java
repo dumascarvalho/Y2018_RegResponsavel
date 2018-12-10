@@ -1,5 +1,6 @@
 package regresponsavel.bd;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import regresponsavel.model.UsuarioModel;
@@ -42,16 +43,19 @@ public class UsuarioDAO implements IUsuarioDAO {
     public boolean autenticarUsuario(String prontuario, String senha) {
         try {
             em = ConnectionFactory.obterConexao();
+            em.getTransaction().begin();
             Query hql = em.createQuery("select object(u) from UsuarioModel as u where u.prontuario = :prontuario and u.senha = :senha")
                     .setParameter("prontuario", prontuario)
                     .setParameter("senha", senha);            
-            Object obj = hql.getSingleResult(); 
-            return obj != null;
-        } catch (Exception ex)  {
+            List usuarios = hql.getResultList(); 
+            em.getTransaction().commit();
+            return (usuarios != null && !usuarios.isEmpty());
+        } catch (Exception e)  {
+            e.printStackTrace();
             return false;
         } finally {
             em.close();
-        }    
+        }   
     }
 
     @Override

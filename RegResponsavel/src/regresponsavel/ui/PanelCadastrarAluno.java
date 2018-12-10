@@ -15,7 +15,7 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
 
     @Override
     public void acaoAluno() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
