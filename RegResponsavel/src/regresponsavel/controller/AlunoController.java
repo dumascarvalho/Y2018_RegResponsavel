@@ -27,4 +27,8 @@ public class AlunoController {
     public List recuperar() {
         return dao.obterAlunos();
     }
+    
+    public AlunoModel obter(String prontuario) {
+        return dao.obterDados(prontuario);
+    }
 }

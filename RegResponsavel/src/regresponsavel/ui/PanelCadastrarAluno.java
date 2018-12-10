@@ -3,6 +3,7 @@ package regresponsavel.ui;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import regresponsavel.controller.AlunoController;
+import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
 
 public class PanelCadastrarAluno extends PanelAbstractAluno {
@@ -15,19 +16,23 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
         btAbstract.setText("Cadastrar");
         tfProntuario.setEnabled(true);
         btPesquisar.setVisible(false);
+        
+        a = new AlunoModel();
+        rc = new ResponsavelController();
+        responsaveis = rc.recuperar(a);
+        preencherTabela(responsaveis);
     }
 
     @Override
     public void acaoAluno() {
         try {
-            a = new AlunoModel();
             a.setNome(tfNome.getText());
             a.setProntuario(tfProntuario.getText());
             a.setDataNascimento(tfDataNascimento.getText());
             a.setTelefone(tfTelefone.getText());
             ac.cadastrar(a);
         } catch (Exception e) {
-            
+            System.out.println("Exceção: " + e);
         }
     }
 
@@ -38,11 +43,5 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
         framePrincipal.setSize(FramePrincipal.panelCentral.getSize());
         framePrincipal.pack();
         framePrincipal.setLocationRelativeTo(null);
-    }
-
-    @Override
-    public void acaoAdicionar() {
-        JFrame frame = new FrameCadastrarResponsavel(a);
-        frame.setVisible(true);
     }
 }

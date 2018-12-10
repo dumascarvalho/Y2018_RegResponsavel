@@ -1,16 +1,27 @@
 package regresponsavel.ui;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
+import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.ResponsavelModel;
 
-public class ResponsaveisTableModel extends AbstractTableModel {
+public class ResponsaveisTableModel extends AbstractTableModel implements Observer {
     
     private final List<ResponsavelModel> listaResponsaveis;
     private final String[] colunas = {"Nome", "Data de Nascimento", "Telefone"};
 
     public ResponsaveisTableModel(List<ResponsavelModel> r) {
-        listaResponsaveis = r;
+               
+        this.listaResponsaveis = r;
+        Iterator<ResponsavelModel> i = listaResponsaveis.iterator();
+        
+        while (i.hasNext()) {
+            ResponsavelModel responsavel = i.next();
+            responsavel.addObserver(this);
+        }
     }
 
     @Override
@@ -37,6 +48,28 @@ public class ResponsaveisTableModel extends AbstractTableModel {
                 return "Dado inválido";
         }
     }
+    
+    @Override 
+    public void setValueAt(Object dado, int rowIndex, int columnIndex) {
+        ResponsavelModel r = listaResponsaveis.get(rowIndex);
+        switch(columnIndex) {
+            case 0:
+                String nome = (String) dado;
+                r.setNome(nome);
+                break;
+            case 1:
+                String dataNascimento = (String) dado;
+                r.setDataNascimento(dataNascimento);
+                break;
+            case 2:
+                String telefone = (String) dado;
+                r.setTelefone(telefone);
+                break;
+        }
+        
+        ResponsavelController rc = new ResponsavelController();
+        rc.alterar(r);
+    }  
 
     @Override
     public String getColumnName(int columnIndex) {
@@ -51,5 +84,10 @@ public class ResponsaveisTableModel extends AbstractTableModel {
     @Override
     public Class getColumnClass(int columnIndex) {
         return String.class;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.fireTableDataChanged();
     }
 }

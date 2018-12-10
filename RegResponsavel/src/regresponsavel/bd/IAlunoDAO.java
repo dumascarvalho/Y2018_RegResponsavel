@@ -12,4 +12,6 @@ public interface IAlunoDAO {
     public abstract void removerAluno(AlunoModel a);
     
     public abstract List obterAlunos();
+    
+    public abstract AlunoModel obterDados(String prontuario); 
 }

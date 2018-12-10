@@ -1,6 +1,9 @@
 package regresponsavel.ui;
 
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import regresponsavel.controller.AlunoController;
 import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
 import regresponsavel.model.ResponsavelModel;
@@ -8,13 +11,12 @@ import regresponsavel.model.ResponsavelModel;
 public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
     protected List<ResponsavelModel> responsaveis;
+    protected ResponsavelController rc;
+    protected AlunoController ar;
     protected AlunoModel a;
     
     public PanelAbstractAluno() {
         initComponents();
-        ResponsavelController rc = new ResponsavelController();
-        responsaveis = rc.recuperar();
-        this.preencherTabela(responsaveis);
     }
 
     @SuppressWarnings("unchecked")
@@ -77,7 +79,11 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
         lbTelefone.setText("Telefone:");
 
-        tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         tfDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
@@ -205,23 +211,54 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    private void preencherTabela(List responsaveis) {
+    static void preencherTabela(List responsaveis) {
         ResponsaveisTableModel modeloTabela = new ResponsaveisTableModel(responsaveis);
         tbResponsaveis.setModel(modeloTabela);
     }
     
+    private void acaoAdicionar() {
+        JFrame frame = new FrameCadastrarResponsavel(a);
+        frame.setVisible(true);
+    }
+    
+    private void acaoPesquisar() {
+        try {
+            String prontuario = tfProntuario.getText();
+            ar = new AlunoController();        
+            a = ar.obter(prontuario);
+
+            tfNome.setText(a.getNome());
+            tfDataNascimento.setText(a.getDataNascimento());
+            tfTelefone.setText(a.getTelefone());
+            
+            tfNome.setEnabled(true);
+            tfDataNascimento.setEnabled(true);
+            tfTelefone.setEnabled(true);
+            
+            rc = new ResponsavelController();
+            responsaveis = rc.recuperar(a);
+            preencherTabela(responsaveis);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nenhum aluno foi encontrado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            tfNome.setEnabled(false);
+            tfDataNascimento.setEnabled(false);
+            tfTelefone.setEnabled(false);
+            tfProntuario.setText("");
+            tfProntuario.grabFocus();
+        }
+    }
+
     private void limparCampos() {
         tfNome.setText("");
         tfDataNascimento.setText("");
         tfTelefone.setText("");
+        tfProntuario.setText("");
         tfNome.grabFocus();
     } 
        
     public abstract void acaoAluno();
     
     public abstract void acaoCancelar();
-    
-    public abstract void acaoAdicionar();
     
     private void btAbstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbstractActionPerformed
         acaoAluno();
@@ -244,7 +281,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-
+        acaoPesquisar();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -261,7 +298,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     protected javax.swing.JLabel lbResponsaveis;
     protected javax.swing.JLabel lbTelefone;
     protected javax.swing.JLabel lbTitulo;
-    protected javax.swing.JTable tbResponsaveis;
+    protected static javax.swing.JTable tbResponsaveis;
     protected javax.swing.JFormattedTextField tfDataNascimento;
     protected javax.swing.JTextField tfNome;
     protected javax.swing.JTextField tfProntuario;

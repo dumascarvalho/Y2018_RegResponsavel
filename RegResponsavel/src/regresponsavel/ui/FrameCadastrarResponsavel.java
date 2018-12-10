@@ -1,5 +1,6 @@
 package regresponsavel.ui;
 
+import javax.swing.JOptionPane;
 import regresponsavel.model.AlunoModel;
 import regresponsavel.model.ResponsavelModel;
 
@@ -56,7 +57,11 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
 
         lbTelefone.setText("Telefone:");
 
-        tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         tfDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
@@ -157,8 +162,11 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
             r.setDataNascimento(tfDataNascimento.getText());
             r.setTelefone(tfTelefone.getText());
             a.adicionarResponsavel(r);
+            JOptionPane.showMessageDialog(this, "Responsável inserido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            PanelAbstractAluno.preencherTabela(a.getResponsavel());
+            this.dispose();
         } catch (Exception e) {
-            
+            System.out.println("Exceção: " + e);
         }
     }//GEN-LAST:event_btInserirActionPerformed
 

@@ -60,10 +60,32 @@ public class AlunoDAO implements IAlunoDAO {
             em = ConnectionFactory.obterConexao();                    
             Query q = em.createQuery("select object(a) from AlunoModel as a");
             return q.getResultList();
-        } catch (Exception ex)  {
-            throw new RuntimeException("Exceção: " + ex);
+        } catch (Exception e)  {
+            throw new RuntimeException("Exceção: " + e);
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public AlunoModel obterDados(String prontuario) {
+        try {
+            em = ConnectionFactory.obterConexao();
+            em.getTransaction().begin();
+            Query hql = em.createQuery("select object(a) from AlunoModel as a where a.prontuario = :prontuario")
+                    .setParameter("prontuario", prontuario); 
+            if (hql.getFirstResult() != 0) {
+                AlunoModel a = (AlunoModel) hql.getSingleResult();
+                em.getTransaction().commit();
+                return a;
+            } else {
+                return null;
+            }
+        } catch (Exception e)  {
+            e.printStackTrace();
+            return null;
+        } finally {
+            em.close();
+        }   
     }
 }

@@ -6,7 +6,7 @@ import regresponsavel.model.UsuarioModel;
 public class FramePrincipal extends javax.swing.JFrame {
 
     private final UsuarioModel usuario;
-    
+
     public FramePrincipal(UsuarioModel u) {
         initComponents();
         this.usuario = u;

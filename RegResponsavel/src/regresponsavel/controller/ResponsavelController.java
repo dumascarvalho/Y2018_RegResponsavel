@@ -2,6 +2,7 @@ package regresponsavel.controller;
 
 import java.util.List;
 import regresponsavel.bd.ResponsavelDAO;
+import regresponsavel.model.AlunoModel;
 import regresponsavel.model.ResponsavelModel;
 
 public class ResponsavelController {
@@ -24,7 +25,7 @@ public class ResponsavelController {
 
     }
     
-    public List recuperar() {
-        return null;
+    public List recuperar(AlunoModel a) {
+        return dao.obterResponsaveis(a);
     }
 }

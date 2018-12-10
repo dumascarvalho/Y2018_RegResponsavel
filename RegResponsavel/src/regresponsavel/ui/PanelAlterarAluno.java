@@ -2,6 +2,7 @@ package regresponsavel.ui;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
 
 public class PanelAlterarAluno extends PanelAbstractAluno {
@@ -10,6 +11,9 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         super();
         lbTitulo.setText("Alterar Cadastro do Aluno");
         btAbstract.setText("Alterar");
+        tfNome.setEnabled(false);
+        tfDataNascimento.setEnabled(false);
+        tfTelefone.setEnabled(false);
         tfProntuario.setEnabled(true);
         btPesquisar.setVisible(true);
         tfProntuario.grabFocus();
@@ -23,6 +27,10 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         tfProntuario.setEnabled(false);
         btPesquisar.setVisible(false);
         tfNome.grabFocus();
+        
+        rc = new ResponsavelController();
+        responsaveis = rc.recuperar(a);
+        preencherTabela(responsaveis);
     }
     
     @Override
@@ -34,11 +42,5 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
     public void acaoCancelar() {
         JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         framePrincipal.dispose();    
-    }
-
-    @Override
-    public void acaoAdicionar() {
-        JFrame frame = new FrameCadastrarResponsavel(a);
-        frame.setVisible(true);
     }
 }

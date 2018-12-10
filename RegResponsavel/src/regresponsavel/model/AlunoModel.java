@@ -19,7 +19,7 @@ public class AlunoModel extends PessoaModel {
     private String prontuario;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "aluno")
-    private List<ResponsavelModel> responsavel  = new ArrayList();
+    private List<ResponsavelModel> responsavel = new ArrayList();
     
     public AlunoModel() {
         super();
@@ -44,5 +44,7 @@ public class AlunoModel extends PessoaModel {
     public void adicionarResponsavel(ResponsavelModel r) {
         responsavel.add(r);
         r.setAluno(this);
+        this.setChanged();
+        this.notifyObservers();
     }
 }
