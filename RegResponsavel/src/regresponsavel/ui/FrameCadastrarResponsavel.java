@@ -1,9 +1,16 @@
 package regresponsavel.ui;
 
-public class FrameCadastrarResponsavel extends javax.swing.JFrame {
+import regresponsavel.model.AlunoModel;
+import regresponsavel.model.ResponsavelModel;
 
-    public FrameCadastrarResponsavel() {
+public class FrameCadastrarResponsavel extends javax.swing.JFrame {
+    
+    private final AlunoModel a;
+    private final ResponsavelModel r = new ResponsavelModel();
+
+    public FrameCadastrarResponsavel(AlunoModel a) {
         initComponents();
+        this.a = a;
     }
 
     @SuppressWarnings("unchecked")
@@ -129,16 +136,30 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparCampos() {
+        tfNome.setText("");
+        tfDataNascimento.setText("");
+        tfTelefone.setText("");
+        tfNome.grabFocus();
+    }
+    
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-
+        limparCampos();
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
-
+        try {
+            r.setNome(tfNome.getText());
+            r.setDataNascimento(tfDataNascimento.getText());
+            r.setTelefone(tfTelefone.getText());
+            a.adicionarResponsavel(r);
+        } catch (Exception e) {
+            
+        }
     }//GEN-LAST:event_btInserirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

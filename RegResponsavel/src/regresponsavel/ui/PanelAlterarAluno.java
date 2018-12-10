@@ -17,6 +17,7 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
 
     public PanelAlterarAluno(AlunoModel a) {
         super();
+        this.a = a;
         lbTitulo.setText("Alterar Cadastro do Aluno");
         btAbstract.setText("Alterar");
         tfProntuario.setEnabled(false);
@@ -33,5 +34,11 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
     public void acaoCancelar() {
         JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         framePrincipal.dispose();    
+    }
+
+    @Override
+    public void acaoAdicionar() {
+        JFrame frame = new FrameCadastrarResponsavel(a);
+        frame.setVisible(true);
     }
 }
