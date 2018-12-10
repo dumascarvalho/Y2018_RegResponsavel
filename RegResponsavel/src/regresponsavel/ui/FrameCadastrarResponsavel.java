@@ -1,17 +1,25 @@
 package regresponsavel.ui;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import regresponsavel.model.AlunoModel;
 import regresponsavel.model.ResponsavelModel;
 
 public class FrameCadastrarResponsavel extends javax.swing.JFrame {
     
-    private final AlunoModel a;
+    private final AlunoModel aluno;
     private final ResponsavelModel r = new ResponsavelModel();
+    private List<ResponsavelModel> listaResponsaveis;
 
     public FrameCadastrarResponsavel(AlunoModel a) {
         initComponents();
-        this.a = a;
+        this.aluno = a;
+    }
+    
+    public FrameCadastrarResponsavel(AlunoModel a, List responsaveis) {
+        initComponents();
+        this.aluno = a;
+        this.listaResponsaveis = responsaveis;
     }
 
     @SuppressWarnings("unchecked")
@@ -161,9 +169,10 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
             r.setNome(tfNome.getText());
             r.setDataNascimento(tfDataNascimento.getText());
             r.setTelefone(tfTelefone.getText());
-            a.adicionarResponsavel(r);
+            aluno.adicionarResponsavel(r);
+            listaResponsaveis.add(r);
             JOptionPane.showMessageDialog(this, "Responsável inserido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-            PanelAbstractAluno.preencherTabela(a.getResponsavel());
+            PanelAbstractAluno.preencherTabela(listaResponsaveis);
             this.dispose();
         } catch (Exception e) {
             System.out.println("Exceção: " + e);

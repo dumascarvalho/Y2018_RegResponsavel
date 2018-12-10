@@ -11,7 +11,6 @@ import regresponsavel.model.ResponsavelModel;
 public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
     protected List<ResponsavelModel> responsaveis;
-    protected ResponsavelController rc;
     protected AlunoController ar;
     protected AlunoModel a;
     
@@ -217,8 +216,21 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     }
     
     private void acaoAdicionar() {
-        JFrame frame = new FrameCadastrarResponsavel(a);
+        JFrame frame = new FrameCadastrarResponsavel(a, responsaveis);
         frame.setVisible(true);
+    }
+    
+    private void acaoRemover() {
+        try {
+            int linhaSelecionada = tbResponsaveis.getSelectedRow();
+            System.out.println(responsaveis.size());
+            responsaveis.remove(linhaSelecionada);
+            preencherTabela(responsaveis); 
+            JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);         
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Nenhum responsável foi selecionado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);         
+        }
     }
     
     private void acaoPesquisar() {
@@ -235,7 +247,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
             tfDataNascimento.setEnabled(true);
             tfTelefone.setEnabled(true);
             
-            rc = new ResponsavelController();
+            ResponsavelController rc = new ResponsavelController();
             responsaveis = rc.recuperar(a);
             preencherTabela(responsaveis);
         } catch (Exception e) {
@@ -248,7 +260,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         }
     }
 
-    private void limparCampos() {
+    protected void limparCampos() {
         tfNome.setText("");
         tfDataNascimento.setText("");
         tfTelefone.setText("");
@@ -273,7 +285,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-
+        acaoRemover();
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed

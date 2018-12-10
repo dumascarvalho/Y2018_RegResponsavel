@@ -6,6 +6,8 @@ import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
 
 public class PanelAlterarAluno extends PanelAbstractAluno {
+    
+    private final ResponsavelController rc = new ResponsavelController();
 
     public PanelAlterarAluno() {
         super();
@@ -28,7 +30,6 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         btPesquisar.setVisible(false);
         tfNome.grabFocus();
         
-        rc = new ResponsavelController();
         responsaveis = rc.recuperar(a);
         preencherTabela(responsaveis);
     }

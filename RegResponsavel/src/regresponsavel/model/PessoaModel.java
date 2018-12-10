@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class PessoaModel extends Observable implements Serializable, Comparable<PessoaModel> {
 
     @Id

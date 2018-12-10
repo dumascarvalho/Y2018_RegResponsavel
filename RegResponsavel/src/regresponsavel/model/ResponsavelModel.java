@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class ResponsavelModel extends PessoaModel {
     
     @OneToOne
-    @JoinColumn(name = "prontuarioAluno")
+    @JoinColumn(name = "codigoAluno")
     private AlunoModel aluno;
 
     public ResponsavelModel() {

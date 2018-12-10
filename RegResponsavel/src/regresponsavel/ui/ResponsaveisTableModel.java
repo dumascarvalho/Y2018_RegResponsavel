@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
-import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.ResponsavelModel;
 
 public class ResponsaveisTableModel extends AbstractTableModel implements Observer {
@@ -66,9 +65,7 @@ public class ResponsaveisTableModel extends AbstractTableModel implements Observ
                 r.setTelefone(telefone);
                 break;
         }
-        
-        ResponsavelController rc = new ResponsavelController();
-        rc.alterar(r);
+        listaResponsaveis.set(rowIndex, r);
     }  
 
     @Override
