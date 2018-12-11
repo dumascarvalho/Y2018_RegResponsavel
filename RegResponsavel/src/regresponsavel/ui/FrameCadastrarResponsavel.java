@@ -1,9 +1,21 @@
 package regresponsavel.ui;
 
-public class FrameCadastrarResponsavel extends javax.swing.JFrame {
+import java.util.List;
+import javax.swing.JOptionPane;
+import regresponsavel.controller.ResponsavelController;
+import regresponsavel.model.AlunoModel;
+import regresponsavel.model.ResponsavelModel;
 
-    public FrameCadastrarResponsavel() {
+public class FrameCadastrarResponsavel extends javax.swing.JFrame {
+    
+    private final AlunoModel aluno;
+    private ResponsavelModel responsavel;
+    final int tipo;
+    
+    public FrameCadastrarResponsavel(AlunoModel a, int i) {
         initComponents();
+        this.aluno = a;
+        this.tipo = i;
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +61,11 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
 
         lbTelefone.setText("Telefone:");
 
-        tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         tfDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
@@ -129,16 +145,42 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparCampos() {
+        tfNome.setText("");
+        tfDataNascimento.setText("");
+        tfTelefone.setText("");
+        tfNome.grabFocus();
+    }
+    
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-
+        limparCampos();
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
-
+        try {            
+            responsavel = new ResponsavelModel();
+            responsavel.setNome(tfNome.getText());
+            responsavel.setDataNascimento(tfDataNascimento.getText());
+            responsavel.setTelefone(tfTelefone.getText());
+            responsavel.setAluno(aluno);
+            aluno.adicionarResponsavel(responsavel);    
+            List<ResponsavelModel> responsaveis = aluno.getResponsavel();
+            
+            if (tipo == 1) {
+                ResponsavelController rc = new ResponsavelController();
+                rc.cadastrar(responsavel);
+            } 
+            
+            JOptionPane.showMessageDialog(this, "Responsável inserido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            PanelAbstractAluno.preencherTabela(responsaveis);
+            this.dispose();
+        } catch (Exception e) {
+            System.out.println("Exceção: " + e);
+        }
     }//GEN-LAST:event_btInserirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

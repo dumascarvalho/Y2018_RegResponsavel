@@ -1,9 +1,21 @@
 package regresponsavel.ui;
 
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import regresponsavel.controller.AlunoController;
+import regresponsavel.controller.ResponsavelController;
+import regresponsavel.model.AlunoModel;
+import regresponsavel.model.ResponsavelModel;
 
 public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
+    protected List<ResponsavelModel> responsaveis = new ArrayList();
+    protected AlunoController ac = new AlunoController();
+    protected ResponsavelController rc = new ResponsavelController();
+    protected AlunoModel aluno;
+    
     public PanelAbstractAluno() {
         initComponents();
     }
@@ -29,6 +41,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         tbResponsaveis = new javax.swing.JTable();
         btAdicionar = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
 
         setToolTipText("");
 
@@ -67,7 +80,11 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
         lbTelefone.setText("Telefone:");
 
-        tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         tfDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
@@ -81,14 +98,10 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
         tbResponsaveis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Nome", "Telefone"
+
             }
         ));
         jScrollPane1.setViewportView(tbResponsaveis);
@@ -107,33 +120,42 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
             }
         });
 
+        btPesquisar.setText("Pesquisar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lbNome)
-                            .addGap(18, 18, 18)
-                            .addComponent(tfNome))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lbProntuario)
-                            .addGap(73, 73, 73)
-                            .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbDataNascimento)
-                                .addComponent(lbTelefone))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfDataNascimento)
-                                .addComponent(tfTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lbNome)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfNome))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lbProntuario)
+                                .addGap(73, 73, 73)
+                                .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbDataNascimento)
+                                    .addComponent(lbTelefone))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfDataNascimento)
+                                    .addComponent(tfTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btPesquisar))
                     .addComponent(lbResponsaveis)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btAbstract, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
@@ -146,7 +168,8 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
                                 .addComponent(btAdicionar)
                                 .addComponent(btRemover))
                             .addGap(18, 18, 18)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -161,7 +184,8 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbProntuario)
-                    .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDataNascimento)
@@ -188,17 +212,39 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    private void limparCampos() {
+    static void preencherTabela(List responsaveis) {
+        ResponsaveisTableModel modeloTabela = new ResponsaveisTableModel(responsaveis);
+        tbResponsaveis.setModel(modeloTabela);
+    }
+    
+    abstract void acaoAdicionar();
+    
+    protected void acaoRemover() {
+        try {
+            int linhaSelecionada = tbResponsaveis.getSelectedRow();
+            responsaveis.remove(linhaSelecionada);
+            preencherTabela(responsaveis); 
+            JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);         
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "Nenhum responsável foi selecionado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);         
+        }
+    }
+    
+    abstract void acaoPesquisar();
+
+    protected void limparCampos() {
         tfNome.setText("");
         tfDataNascimento.setText("");
         tfTelefone.setText("");
+        tfProntuario.setText("");
         tfNome.grabFocus();
     } 
        
     public abstract void acaoAluno();
     
     public abstract void acaoCancelar();
-        
+    
     private void btAbstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbstractActionPerformed
         acaoAluno();
     }//GEN-LAST:event_btAbstractActionPerformed
@@ -208,23 +254,27 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        JFrame frame = new FrameCadastrarResponsavel();
-        frame.setVisible(true);
+        acaoAdicionar();
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-
+        acaoRemover();
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         acaoCancelar();
     }//GEN-LAST:event_btCancelarActionPerformed
 
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        acaoPesquisar();
+    }//GEN-LAST:event_btPesquisarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JButton btAbstract;
     protected javax.swing.JButton btAdicionar;
-    private javax.swing.JButton btCancelar;
+    protected javax.swing.JButton btCancelar;
     protected javax.swing.JButton btLimpar;
+    protected javax.swing.JButton btPesquisar;
     protected javax.swing.JButton btRemover;
     protected javax.swing.JScrollPane jScrollPane1;
     protected javax.swing.JLabel lbDataNascimento;
@@ -233,7 +283,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
     protected javax.swing.JLabel lbResponsaveis;
     protected javax.swing.JLabel lbTelefone;
     protected javax.swing.JLabel lbTitulo;
-    private javax.swing.JTable tbResponsaveis;
+    protected static javax.swing.JTable tbResponsaveis;
     protected javax.swing.JFormattedTextField tfDataNascimento;
     protected javax.swing.JTextField tfNome;
     protected javax.swing.JTextField tfProntuario;

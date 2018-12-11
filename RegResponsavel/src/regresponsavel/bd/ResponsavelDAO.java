@@ -3,18 +3,19 @@ package regresponsavel.bd;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import regresponsavel.model.UsuarioModel;
+import regresponsavel.model.AlunoModel;
+import regresponsavel.model.ResponsavelModel;
 
-public class UsuarioDAO implements IUsuarioDAO {
+public class ResponsavelDAO implements IResponsavelDAO {
     
     private EntityManager em = null;
 
     @Override
-    public void cadastrarUsuario(UsuarioModel u) {
+    public void cadastrarResponsavel(ResponsavelModel r) {
         try {
             em = ConnectionFactory.obterConexao(); 
             em.getTransaction().begin();
-            em.persist(u);
+            em.persist(r);
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
@@ -25,11 +26,11 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public void alterarSenha(UsuarioModel u) {
+    public void alterarResponsavel(ResponsavelModel r) {
         try {
             em = ConnectionFactory.obterConexao();             
             em.getTransaction().begin();
-            em.merge(u);
+            em.merge(r);
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
@@ -37,37 +38,35 @@ public class UsuarioDAO implements IUsuarioDAO {
         } finally {
             em.close();
         }
-    } 
-
-    @Override
-    public boolean autenticarUsuario(String prontuario, String senha) {
-        try {
-            em = ConnectionFactory.obterConexao();
-            em.getTransaction().begin();
-            Query hql = em.createQuery("select object(u) from UsuarioModel as u where u.prontuario = :prontuario and u.senha = :senha")
-                    .setParameter("prontuario", prontuario)
-                    .setParameter("senha", senha);            
-            List usuarios = hql.getResultList(); 
-            em.getTransaction().commit();
-            return (usuarios != null && !usuarios.isEmpty());
-        } catch (Exception e)  {
-            e.printStackTrace();
-            return false;
-        } finally {
-            em.close();
-        }   
     }
 
     @Override
-    public UsuarioModel obterUsuario(String prontuario) {
+    public void removerResponsavel(ResponsavelModel r) {
         try {
-            em = ConnectionFactory.obterConexao();
-            UsuarioModel u = em.find(UsuarioModel.class, prontuario);
-            return u;
+            em = ConnectionFactory.obterConexao();              
+            em.getTransaction().begin();
+            System.out.println(r.getNome());
+            em.remove(em.getReference(ResponsavelModel.class, r.getCodigoPessoa()));
+            em.getTransaction().commit();
         } catch (Exception e)  {
+            em.getTransaction().rollback();
             throw new RuntimeException("Exceção: " + e);
         } finally {
             em.close();
-        }    
+        }
+    }
+
+    @Override
+    public List obterResponsaveis(AlunoModel a) {
+        try {
+            em = ConnectionFactory.obterConexao();                  
+            Query hql = em.createQuery("select object(r) from ResponsavelModel as r where r.aluno = " + a.getCodigoPessoa());
+            return hql.getResultList();
+        } catch (Exception e)  {
+            e.printStackTrace();
+            return null;
+        } finally {
+            em.close();
+        }
     }
 }

@@ -1,8 +1,8 @@
 package regresponsavel.ui;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import regresponsavel.model.AlunoModel;
 
 public class PanelVisualizarAlunos extends javax.swing.JPanel {
 
@@ -188,8 +188,10 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
     }//GEN-LAST:event_btOrdenarNomeActionPerformed
 
     private void btAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarAlunoActionPerformed
+        AlunoModel aluno = new AlunoModel();
+        
         JFrame alterarAluno = new JFrame();
-        alterarAluno.setContentPane(new PanelAlterarAluno());
+        alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
         alterarAluno.setSize(this.getPreferredSize());
         alterarAluno.pack();
         alterarAluno.setLocationRelativeTo(null);

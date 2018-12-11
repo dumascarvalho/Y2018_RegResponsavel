@@ -105,13 +105,17 @@ public class FrameLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btFecharActionPerformed
 
     private void btLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarActionPerformed
-        
-        if (uc.autenticar(tfProntuario.getText(), tfSenha.getText())) {
-            JOptionPane.showMessageDialog(this, "Usuário autenticado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-            new FramePrincipal(uc.obter(tfProntuario.getText())).setVisible(true);
-            this.dispose();
+        if (!"".equals(tfProntuario.getText()) && !"".equals(tfSenha.getText())) {
+            if (uc.autenticar(tfProntuario.getText(), tfSenha.getText())) {
+                JOptionPane.showMessageDialog(this, "Usuário autenticado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                new FramePrincipal(uc.obter(tfProntuario.getText())).setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Prontuário ou senha estão inválidos.", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Prontuário ou senha estão inválidos.", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Algum campo está vazio e/ou em formato inválido.", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            tfProntuario.grabFocus();
         }
     }//GEN-LAST:event_btLogarActionPerformed
 

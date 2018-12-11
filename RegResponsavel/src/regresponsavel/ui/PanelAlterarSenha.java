@@ -177,13 +177,14 @@ public class PanelAlterarSenha extends javax.swing.JPanel {
                     limparCampos();
                     JOptionPane.showMessageDialog(this, "Senha atualizada com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "As senhas informadas não coincidem!", "Mensagem", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "As senhas informadas não coincidem!", "Mensagem", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                    JOptionPane.showMessageDialog(this, "A senha atual está inválida!", "Mensagem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "A senha atual está inválida!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                tfSenha.grabFocus();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Algum campo está vazio ou em formato inválido.", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a alteração da senha do usuário.", "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 

@@ -10,11 +10,11 @@ public class ConnectionFactory {
 
     public static EntityManager obterConexao() {
         try {
-            if(emf == null)
+            if (emf == null)
                 emf = Persistence.createEntityManagerFactory("RegResponsavelPU");
             return emf.createEntityManager();
         } catch(Exception e) {
-            System.out.println("Exceção de Conexão: " + e);
+            e.printStackTrace();
         }
         return null;        
     }     

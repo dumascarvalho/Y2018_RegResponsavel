@@ -1,6 +1,7 @@
 package regresponsavel.model;
 
 import java.io.Serializable;
+import java.util.Observable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
-public class PessoaModel implements Serializable, Comparable<PessoaModel> {
+public class PessoaModel extends Observable implements Serializable, Comparable<PessoaModel> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,8 @@ public class PessoaModel implements Serializable, Comparable<PessoaModel> {
 
     public void setNome(String nome) {
         this.nome = nome;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public String getDataNascimento() {
@@ -39,6 +42,8 @@ public class PessoaModel implements Serializable, Comparable<PessoaModel> {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public String getTelefone() {
@@ -47,6 +52,8 @@ public class PessoaModel implements Serializable, Comparable<PessoaModel> {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+        this.setChanged();
+        this.notifyObservers();
     }  
 
     public int getCodigoPessoa() {
