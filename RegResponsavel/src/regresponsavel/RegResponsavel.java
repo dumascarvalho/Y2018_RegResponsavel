@@ -16,8 +16,8 @@ public class RegResponsavel {
             java.util.logging.Logger.getLogger(FrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }       
         java.awt.EventQueue.invokeLater(() -> {
-            // new FramePrincipal(null).setVisible(true);
-            new FrameLogin().setVisible(true);
+            new FramePrincipal(null).setVisible(true);
+            // new FrameLogin().setVisible(true);
         });
     }    
 }

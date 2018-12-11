@@ -142,27 +142,33 @@ public class PanelCadastrarUsuario extends javax.swing.JPanel {
         tfSenhaRepetir.setText("");
         tfNome.grabFocus();
     }
-    
+
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        try {            
-            String senha, repetir;
-            
-            senha = tfSenha.getText();
-            repetir = tfSenhaRepetir.getText();
-            
-            if (senha.equals(repetir)) {
-                UsuarioModel u = new UsuarioModel();
-                u.setNome(tfNome.getText());
-                u.setProntuario(tfProntuario.getText());
-                u.setSenha(senha);
-                uc.cadastrar(u);
-                limparCampos();
-                JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            if (!"".equals(tfProntuario.getText())) {
+
+                String senha, repetir;
+
+                senha = tfSenha.getText();
+                repetir = tfSenhaRepetir.getText();
+
+                if (senha.equals(repetir)) {
+                    UsuarioModel u = new UsuarioModel();
+                    u.setNome(tfNome.getText());
+                    u.setProntuario(tfProntuario.getText());
+                    u.setSenha(senha);
+                    uc.cadastrar(u);
+                    limparCampos();
+                    JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "As senhas informadas não coincidem!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "As senhas informadas não coincidem!", "Mensagem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "O prontuário não foi informado!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                tfProntuario.grabFocus();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Algum campo está vazio ou em formato inválido.\nExceção: " + e, "Mensagem", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a inserção do usuário.", "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCadastrarActionPerformed
 

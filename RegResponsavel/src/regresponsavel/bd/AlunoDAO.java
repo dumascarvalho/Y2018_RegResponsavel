@@ -72,9 +72,10 @@ public class AlunoDAO implements IAlunoDAO {
         try {
             em = ConnectionFactory.obterConexao();
             em.getTransaction().begin();
+
             Query hql = em.createQuery("select object(a) from AlunoModel as a where a.prontuario = :prontuario")
-                    .setParameter("prontuario", prontuario); 
-            if (hql.getFirstResult() != 0) {
+                    .setParameter("prontuario", prontuario);
+            if (!hql.getResultList().isEmpty()) {
                 AlunoModel a = (AlunoModel) hql.getSingleResult();
                 em.getTransaction().commit();
                 return a;

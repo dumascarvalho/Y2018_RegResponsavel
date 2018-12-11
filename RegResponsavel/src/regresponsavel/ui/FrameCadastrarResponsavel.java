@@ -8,18 +8,12 @@ import regresponsavel.model.ResponsavelModel;
 public class FrameCadastrarResponsavel extends javax.swing.JFrame {
     
     private final AlunoModel aluno;
-    private final ResponsavelModel r = new ResponsavelModel();
-    private List<ResponsavelModel> listaResponsaveis;
-
+    private ResponsavelModel responsavel;
+    
     public FrameCadastrarResponsavel(AlunoModel a) {
         initComponents();
         this.aluno = a;
-    }
-    
-    public FrameCadastrarResponsavel(AlunoModel a, List responsaveis) {
-        initComponents();
-        this.aluno = a;
-        this.listaResponsaveis = responsaveis;
+        System.out.println(a.getNome());
     }
 
     @SuppressWarnings("unchecked")
@@ -166,13 +160,20 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
         try {
-            r.setNome(tfNome.getText());
-            r.setDataNascimento(tfDataNascimento.getText());
-            r.setTelefone(tfTelefone.getText());
-            aluno.adicionarResponsavel(r);
-            listaResponsaveis.add(r);
+            responsavel = new ResponsavelModel();
+            responsavel.setNome(tfNome.getText());
+            responsavel.setDataNascimento(tfDataNascimento.getText());
+            responsavel.setTelefone(tfTelefone.getText());
+            responsavel.setAluno(aluno);
+            aluno.adicionarResponsavel(responsavel);
+            
+            List<ResponsavelModel> responsaveis = aluno.getResponsavel();
+
+            System.out.println("CAD - LISTA DE RESPONSÁVEIS: " + responsaveis);
+            System.out.println("CAD - RESPONSÁVEIS DO ALUNO: " + aluno.getResponsavel());
+            
             JOptionPane.showMessageDialog(this, "Responsável inserido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-            PanelAbstractAluno.preencherTabela(listaResponsaveis);
+            PanelAbstractAluno.preencherTabela(responsaveis);
             this.dispose();
         } catch (Exception e) {
             System.out.println("Exceção: " + e);

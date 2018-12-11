@@ -1,5 +1,6 @@
 package regresponsavel.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -10,9 +11,10 @@ import regresponsavel.model.ResponsavelModel;
 
 public abstract class PanelAbstractAluno extends javax.swing.JPanel {
 
-    protected List<ResponsavelModel> responsaveis;
-    protected AlunoController ar;
-    protected AlunoModel a;
+    protected List<ResponsavelModel> responsaveis = new ArrayList();
+    protected AlunoController ac = new AlunoController();
+    protected ResponsavelController rc = new ResponsavelController();
+    protected AlunoModel aluno;
     
     public PanelAbstractAluno() {
         initComponents();
@@ -215,15 +217,14 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         tbResponsaveis.setModel(modeloTabela);
     }
     
-    private void acaoAdicionar() {
-        JFrame frame = new FrameCadastrarResponsavel(a, responsaveis);
+    protected void acaoAdicionar() {
+        JFrame frame = new FrameCadastrarResponsavel(aluno);
         frame.setVisible(true);
     }
     
-    private void acaoRemover() {
+    protected void acaoRemover() {
         try {
             int linhaSelecionada = tbResponsaveis.getSelectedRow();
-            System.out.println(responsaveis.size());
             responsaveis.remove(linhaSelecionada);
             preencherTabela(responsaveis); 
             JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);         
@@ -233,32 +234,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         }
     }
     
-    private void acaoPesquisar() {
-        try {
-            String prontuario = tfProntuario.getText();
-            ar = new AlunoController();        
-            a = ar.obter(prontuario);
-
-            tfNome.setText(a.getNome());
-            tfDataNascimento.setText(a.getDataNascimento());
-            tfTelefone.setText(a.getTelefone());
-            
-            tfNome.setEnabled(true);
-            tfDataNascimento.setEnabled(true);
-            tfTelefone.setEnabled(true);
-            
-            ResponsavelController rc = new ResponsavelController();
-            responsaveis = rc.recuperar(a);
-            preencherTabela(responsaveis);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Nenhum aluno foi encontrado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);
-            tfNome.setEnabled(false);
-            tfDataNascimento.setEnabled(false);
-            tfTelefone.setEnabled(false);
-            tfProntuario.setText("");
-            tfProntuario.grabFocus();
-        }
-    }
+    abstract void acaoPesquisar();
 
     protected void limparCampos() {
         tfNome.setText("");

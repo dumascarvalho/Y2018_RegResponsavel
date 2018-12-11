@@ -9,7 +9,7 @@ import regresponsavel.model.ResponsavelModel;
 
 public class ResponsaveisTableModel extends AbstractTableModel implements Observer {
     
-    private final List<ResponsavelModel> listaResponsaveis;
+    private List<ResponsavelModel> listaResponsaveis;
     private final String[] colunas = {"Nome", "Data de Nascimento", "Telefone"};
 
     public ResponsaveisTableModel(List<ResponsavelModel> r) {
@@ -23,6 +23,10 @@ public class ResponsaveisTableModel extends AbstractTableModel implements Observ
         }
     }
 
+    public ResponsaveisTableModel() {
+        
+    }
+    
     @Override
     public int getRowCount() {
         return listaResponsaveis.size();

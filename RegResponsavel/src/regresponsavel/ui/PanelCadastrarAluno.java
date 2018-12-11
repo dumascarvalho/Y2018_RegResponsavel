@@ -4,29 +4,23 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import regresponsavel.controller.AlunoController;
-import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
 import regresponsavel.model.ResponsavelModel;
 
 public class PanelCadastrarAluno extends PanelAbstractAluno {
-    
-    private final AlunoController ac = new AlunoController();
-    private final ResponsavelController rc = new ResponsavelController();
-    
+        
     public PanelCadastrarAluno() {
         super();
         lbTitulo.setText("Cadastrar Novo Aluno");
         btAbstract.setText("Cadastrar");
         tfProntuario.setEnabled(true);
-        btPesquisar.setVisible(false);
-        
+        btPesquisar.setVisible(false);        
         reinicializar();
     }
     
     private void reinicializar() {
-        a = new AlunoModel();
-        responsaveis = rc.recuperar(a);
+        aluno = new AlunoModel();
+        responsaveis = rc.recuperar(aluno);
         preencherTabela(responsaveis);
     }
     
@@ -38,23 +32,30 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
     @Override
     public void acaoAluno() {
         try {
-            a.setNome(tfNome.getText());
-            a.setProntuario(tfProntuario.getText());
-            a.setDataNascimento(tfDataNascimento.getText());
-            a.setTelefone(tfTelefone.getText());
-            ac.cadastrar(a);
-            
-            Iterator<ResponsavelModel> i = responsaveis.iterator();
+            if (!"".equals(tfProntuario.getText())) {
+                aluno.setNome(tfNome.getText());
+                aluno.setProntuario(tfProntuario.getText());
+                aluno.setDataNascimento(tfDataNascimento.getText());
+                aluno.setTelefone(tfTelefone.getText());
+                ac.cadastrar(aluno);
 
-            while (i.hasNext()) {
-                ResponsavelModel responsavel = i.next();
-                rc.cadastrar(responsavel);  
+                Iterator<ResponsavelModel> i = aluno.getResponsavel().iterator();
+
+                while (i.hasNext()) {
+                    ResponsavelModel responsavel = i.next();                                     
+                    rc.cadastrar(responsavel);
+                    System.out.println("\nRESPONSÁVEL INSERIDO: " + responsavel.getNome());
+                }
+
+                limparTudo();
+                JOptionPane.showMessageDialog(this, "Aluno e seus respectivos responsáveis cadastrados com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "O prontuário não foi informado!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                tfProntuario.grabFocus();
             }
-            
-            limparTudo();            
-            JOptionPane.showMessageDialog(this, "Aluno e seus responsáveis cadastrados com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);               
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Não foi possível realizar o cadastro, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);         
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a inserção do aluno e seus respectivos responsáveis.", "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -65,5 +66,10 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
         framePrincipal.setSize(FramePrincipal.panelCentral.getSize());
         framePrincipal.pack();
         framePrincipal.setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void acaoPesquisar() {
+    
     }
 }

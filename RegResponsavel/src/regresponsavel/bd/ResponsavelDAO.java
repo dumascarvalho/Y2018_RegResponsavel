@@ -45,7 +45,8 @@ public class ResponsavelDAO implements IResponsavelDAO {
         try {
             em = ConnectionFactory.obterConexao();              
             em.getTransaction().begin();
-            em.remove(r);
+            System.out.println(r.getNome());
+            em.remove(em.getReference(ResponsavelModel.class, r.getCodigoPessoa()));
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
@@ -59,10 +60,11 @@ public class ResponsavelDAO implements IResponsavelDAO {
     public List obterResponsaveis(AlunoModel a) {
         try {
             em = ConnectionFactory.obterConexao();                  
-            Query q = em.createQuery("select object(r) from ResponsavelModel as r where aluno = " + a.getProntuario());
-            return q.getResultList();
+            Query hql = em.createQuery("select object(r) from ResponsavelModel as r where r.aluno = " + a.getCodigoPessoa());
+            return hql.getResultList();
         } catch (Exception e)  {
-            throw new RuntimeException("Exceção: " + e);
+            e.printStackTrace();
+            return null;
         } finally {
             em.close();
         }

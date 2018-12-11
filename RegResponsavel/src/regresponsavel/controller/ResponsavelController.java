@@ -14,15 +14,15 @@ public class ResponsavelController {
     }
 
     public void cadastrar(ResponsavelModel r) {
-
+        dao.cadastrarResponsavel(r);
     }
 
     public void alterar(ResponsavelModel r) {
-
+        dao.alterarResponsavel(r);
     }
     
     public void remover(ResponsavelModel r) {
-
+        dao.removerResponsavel(r);
     }
     
     public List recuperar(AlunoModel a) {

@@ -18,7 +18,7 @@ public class AlunoModel extends PessoaModel {
     @Column(unique = true)
     private String prontuario;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "aluno")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "aluno")
     private List<ResponsavelModel> responsavel = new ArrayList();
     
     public AlunoModel() {
@@ -44,7 +44,5 @@ public class AlunoModel extends PessoaModel {
     public void adicionarResponsavel(ResponsavelModel r) {
         responsavel.add(r);
         r.setAluno(this);
-        this.setChanged();
-        this.notifyObservers();
     }
 }
