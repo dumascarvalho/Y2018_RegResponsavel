@@ -14,8 +14,9 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
     
     public FrameCadastrarResponsavel(AlunoModel a, int i) {
         initComponents();
-        this.aluno = a;
+        
         this.tipo = i;
+        this.aluno = a;
     }
 
     @SuppressWarnings("unchecked")
@@ -170,10 +171,10 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
             aluno.adicionarResponsavel(responsavel);    
             List<ResponsavelModel> responsaveis = aluno.getResponsavel();
             
-            if (tipo == 1) {
+            if (tipo == 2) {
                 ResponsavelController rc = new ResponsavelController();
                 rc.cadastrar(responsavel);
-            } 
+            }  
             
             JOptionPane.showMessageDialog(this, "Responsável inserido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             PanelAbstractAluno.preencherTabela(responsaveis);

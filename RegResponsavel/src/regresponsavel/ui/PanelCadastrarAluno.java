@@ -61,7 +61,6 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
                 tfProntuario.grabFocus();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a inserção do aluno e seus respectivos responsáveis.", "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -74,15 +73,34 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
         framePrincipal.pack();
         framePrincipal.setLocationRelativeTo(null);
     }
-    
-    @Override
-    public void acaoAdicionar() {
-        JFrame frame = new FrameCadastrarResponsavel(aluno, 0);
-        frame.setVisible(true);
-    }
 
     @Override
     public void acaoPesquisar() {
     
+    }
+    
+    @Override
+    public void acaoAdicionar() {
+        JFrame frame = new FrameCadastrarResponsavel(aluno, 1);
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void acaoRemover() {
+        
+        responsaveis = aluno.getResponsavel();
+        
+        try {
+            int linhaSelecionada;
+            if ((linhaSelecionada = tbResponsaveis.getSelectedRow()) != -1) {
+                responsaveis.remove(linhaSelecionada);
+                preencherTabela(responsaveis); 
+                JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);        
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum responsável foi selecionado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);         
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a remoção do responsável.", "Mensagem", JOptionPane.ERROR_MESSAGE);         
+        }
     }
 }

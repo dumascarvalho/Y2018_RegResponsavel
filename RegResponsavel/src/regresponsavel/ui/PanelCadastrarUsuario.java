@@ -157,9 +157,16 @@ public class PanelCadastrarUsuario extends javax.swing.JPanel {
                     u.setNome(tfNome.getText());
                     u.setProntuario(tfProntuario.getText());
                     u.setSenha(senha);
-                    uc.cadastrar(u);
-                    limparCampos();
-                    JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    if (uc.obter(u.getProntuario()) == null) {
+                        uc.cadastrar(u);
+                        limparCampos();
+                        JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE); 
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Prontuário informado já existe, favor informar um novo!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                        tfProntuario.setText("");
+                        tfProntuario.grabFocus();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "As senhas informadas não coincidem!", "Mensagem", JOptionPane.WARNING_MESSAGE);
                 }

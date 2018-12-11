@@ -2,8 +2,6 @@ package regresponsavel.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import regresponsavel.controller.AlunoController;
 import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
@@ -212,26 +210,20 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    static void preencherTabela(List responsaveis) {
-        ResponsaveisTableModel modeloTabela = new ResponsaveisTableModel(responsaveis);
+    static void preencherTabela(List r) {
+        ResponsaveisTableModel modeloTabela = new ResponsaveisTableModel(r);
         tbResponsaveis.setModel(modeloTabela);
     }
     
-    abstract void acaoAdicionar();
+    abstract void acaoAdicionar(); // 1 para Cadastrar Aluno e 2 para Alterar Aluno
     
-    protected void acaoRemover() {
-        try {
-            int linhaSelecionada = tbResponsaveis.getSelectedRow();
-            responsaveis.remove(linhaSelecionada);
-            preencherTabela(responsaveis); 
-            JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);         
-        } catch (Exception e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(this, "Nenhum responsável foi selecionado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);         
-        }
-    }
+    abstract void acaoRemover();
     
     abstract void acaoPesquisar();
+    
+    abstract void acaoAluno();
+    
+    abstract void acaoCancelar();
 
     protected void limparCampos() {
         tfNome.setText("");
@@ -240,10 +232,6 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         tfProntuario.setText("");
         tfNome.grabFocus();
     } 
-       
-    public abstract void acaoAluno();
-    
-    public abstract void acaoCancelar();
     
     private void btAbstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbstractActionPerformed
         acaoAluno();

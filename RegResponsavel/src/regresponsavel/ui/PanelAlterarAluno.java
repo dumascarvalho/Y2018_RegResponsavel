@@ -9,59 +9,66 @@ import regresponsavel.model.ResponsavelModel;
 
 public class PanelAlterarAluno extends PanelAbstractAluno {
     
+    private final int tipo;
+    
     public PanelAlterarAluno() {
         super();
+        this.tipo = 1; // Alterar Alunos do Menu Principal
         lbTitulo.setText("Alterar Cadastro do Aluno");
         btAbstract.setText("Alterar");
-        tfNome.setEnabled(false);
-        tfDataNascimento.setEnabled(false);
-        tfTelefone.setEnabled(false);
-        tfProntuario.setEnabled(true);
         btPesquisar.setVisible(true);
-        tfProntuario.grabFocus();
+        limparTudo();
     }
 
     public PanelAlterarAluno(AlunoModel a) {
         super();
+        this.tipo = 2; // Alterar Alunos da Tela de Visualizar Alunos
         this.aluno = a;
         lbTitulo.setText("Alterar Cadastro do Aluno");
-        btAbstract.setText("Alterar");
+        btAbstract.setText("Alterar");  
         tfProntuario.setEnabled(false);
         btPesquisar.setVisible(false);
-        tfNome.grabFocus();
-        
-        responsaveis = rc.recuperar(a);
-        preencherTabela(rc.recuperar(a));
+        preencherCampos();
     }
-
+    
     @Override
     protected void limparCampos() {
+
         tfNome.setText("");
         tfDataNascimento.setText("");
         tfTelefone.setText("");
-        tfNome.grabFocus();
+ 
+        if (tipo == 1) {
+            limparTudo();
+        } else {
+            tfNome.grabFocus();
+        }
     } 
     
-    @Override
-    protected void acaoRemover() {
-        try {
-            int linhaSelecionada = tbResponsaveis.getSelectedRow();
-            System.out.println("ANTES DE REMOVER: " + responsaveis.size());
-            rc.remover(responsaveis.get(linhaSelecionada));
-            responsaveis.remove(linhaSelecionada);
-            System.out.println("DEPOIS DE REMOVER: " + responsaveis.size());
-            preencherTabela(responsaveis);
-            JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);         
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Nenhum responsável foi selecionado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);         
-        }
+    private void limparTudo() {
+        tfNome.setText("");
+        tfNome.setEnabled(false);
+        tfDataNascimento.setText("");
+        tfDataNascimento.setEnabled(false);
+        tfTelefone.setText("");
+        tfTelefone.setEnabled(false);
+        tfProntuario.setText("");
+        tfProntuario.setEnabled(true);
+        tfProntuario.grabFocus();
     }
     
-    @Override
-    public void acaoAdicionar() {
-        JFrame frame = new FrameCadastrarResponsavel(aluno, 1);
-        frame.setVisible(true);
+    private void preencherCampos() {
+        tfNome.setText(aluno.getNome());
+        tfNome.setEnabled(true);
+        tfDataNascimento.setText(aluno.getDataNascimento());
+        tfDataNascimento.setEnabled(true);
+        tfTelefone.setText(aluno.getTelefone());
+        tfTelefone.setEnabled(true);
+        tfProntuario.setText(aluno.getProntuario());
+        tfProntuario.setEnabled(false);
+        tfNome.grabFocus();
+        responsaveis = rc.recuperar(aluno);
+        preencherTabela(responsaveis);
     }
     
     @Override
@@ -88,7 +95,6 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
                 tfProntuario.grabFocus();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a alteração do aluno e seus respectivos responsáveis.", "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -105,34 +111,44 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
             String prontuario = tfProntuario.getText();
             if ("".equals(prontuario)) {
                 JOptionPane.showMessageDialog(this, "Favor informar um prontuário válido!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                tfProntuario.setText("");
                 tfProntuario.grabFocus();
             } else {      
-                aluno = ac.obter(prontuario);
-                
+                aluno = ac.obter(prontuario);                
                 if (aluno != null) {
-                    tfNome.setText(aluno.getNome());
-                    tfDataNascimento.setText(aluno.getDataNascimento());
-                    tfTelefone.setText(aluno.getTelefone());
-
-                    tfNome.setEnabled(true);
-                    tfDataNascimento.setEnabled(true);
-                    tfTelefone.setEnabled(true);
-                    responsaveis = aluno.getResponsavel(); 
-                    preencherTabela(responsaveis);
+                    preencherCampos();
                 } else {
                     JOptionPane.showMessageDialog(this, "Nenhum aluno foi encontrado, favor inserir um existente.", "Mensagem", JOptionPane.WARNING_MESSAGE);
-                    tfProntuario.grabFocus();
+                    limparTudo();
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            limparCampos();
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao tentar pesquisar, favor tentar novamente.", "Mensagem", JOptionPane.ERROR_MESSAGE);
-            tfNome.setEnabled(false);
-            tfDataNascimento.setEnabled(false);
-            tfTelefone.setEnabled(false);
-            tfProntuario.setText("");
-            preencherTabela(responsaveis);
-            tfProntuario.grabFocus();
+            limparTudo();
+        }
+    }
+    
+    @Override
+    public void acaoAdicionar() {
+        JFrame frame = new FrameCadastrarResponsavel(aluno, 2);
+        frame.setVisible(true);
+    }
+    
+    @Override
+    public void acaoRemover() {
+        try {
+            int linhaSelecionada;
+            if((linhaSelecionada = tbResponsaveis.getSelectedRow()) != -1) {
+                rc.remover(responsaveis.get(linhaSelecionada));
+                responsaveis.remove(linhaSelecionada);
+                preencherTabela(responsaveis);
+                JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);   
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum responsável foi selecionado, favor tentar novamente.", "Mensagem", JOptionPane.WARNING_MESSAGE);         
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a remoção do responsável.", "Mensagem", JOptionPane.ERROR_MESSAGE);         
         }
     }
 }

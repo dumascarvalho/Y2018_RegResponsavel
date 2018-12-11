@@ -1,13 +1,20 @@
 package regresponsavel.ui;
 
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import regresponsavel.controller.AlunoController;
 import regresponsavel.model.AlunoModel;
 
 public class PanelVisualizarAlunos extends javax.swing.JPanel {
 
+    private final List<AlunoModel> alunos;
+    private final AlunoController ac = new AlunoController();
+    
     public PanelVisualizarAlunos() {
         initComponents();
+        this.alunos = ac.recuperar();
+        preencherTabela(alunos);
     }
 
     @SuppressWarnings("unchecked")
@@ -79,34 +86,10 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
 
         tbAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Prontuário", "Nome", "Responsável"
+
             }
         ));
         jsBarraRolagem.setViewportView(tbAlunos);
@@ -175,6 +158,11 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void preencherTabela(List<AlunoModel> alunos) {
+        AlunosTableModel modeloTabela = new AlunosTableModel(alunos);
+        tbAlunos.setModel(modeloTabela);
+    }
+    
     private void btOrdenarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarProntuarioActionPerformed
 
     }//GEN-LAST:event_btOrdenarProntuarioActionPerformed
@@ -188,16 +176,25 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
     }//GEN-LAST:event_btOrdenarNomeActionPerformed
 
     private void btAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarAlunoActionPerformed
-        AlunoModel aluno = new AlunoModel();
-        
-        JFrame alterarAluno = new JFrame();
-        alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
-        alterarAluno.setSize(this.getPreferredSize());
-        alterarAluno.pack();
-        alterarAluno.setLocationRelativeTo(null);
-        alterarAluno.setTitle("Alterar Cadastro do Aluno");
-        alterarAluno.setResizable(false);
-        alterarAluno.setVisible(true);
+        try {
+            int linhaSelecionada;
+            if ((linhaSelecionada = tbAlunos.getSelectedRow()) != -1) {
+                AlunoModel aluno;
+                aluno = alunos.get(linhaSelecionada);
+                JFrame alterarAluno = new JFrame();
+                alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
+                alterarAluno.setSize(this.getPreferredSize());
+                alterarAluno.pack();
+                alterarAluno.setLocationRelativeTo(null);
+                alterarAluno.setTitle("Alterar Cadastro do Aluno");
+                alterarAluno.setResizable(false);
+                alterarAluno.setVisible(true);
+            } else {
+                System.out.println("Nenhum aluno foi selecionado.");
+            }
+        } catch (Exception e) {
+            System.out.println("Houve um erro.");
+        }        
     }//GEN-LAST:event_btAlterarAlunoActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
