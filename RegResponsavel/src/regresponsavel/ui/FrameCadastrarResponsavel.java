@@ -2,6 +2,7 @@ package regresponsavel.ui;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
 import regresponsavel.model.ResponsavelModel;
 
@@ -9,11 +10,12 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
     
     private final AlunoModel aluno;
     private ResponsavelModel responsavel;
+    final int tipo;
     
-    public FrameCadastrarResponsavel(AlunoModel a) {
+    public FrameCadastrarResponsavel(AlunoModel a, int i) {
         initComponents();
         this.aluno = a;
-        System.out.println(a.getNome());
+        this.tipo = i;
     }
 
     @SuppressWarnings("unchecked")
@@ -159,18 +161,19 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
-        try {
+        try {            
             responsavel = new ResponsavelModel();
             responsavel.setNome(tfNome.getText());
             responsavel.setDataNascimento(tfDataNascimento.getText());
             responsavel.setTelefone(tfTelefone.getText());
             responsavel.setAluno(aluno);
-            aluno.adicionarResponsavel(responsavel);
-            
+            aluno.adicionarResponsavel(responsavel);    
             List<ResponsavelModel> responsaveis = aluno.getResponsavel();
-
-            System.out.println("CAD - LISTA DE RESPONSÁVEIS: " + responsaveis);
-            System.out.println("CAD - RESPONSÁVEIS DO ALUNO: " + aluno.getResponsavel());
+            
+            if (tipo == 1) {
+                ResponsavelController rc = new ResponsavelController();
+                rc.cadastrar(responsavel);
+            } 
             
             JOptionPane.showMessageDialog(this, "Responsável inserido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             PanelAbstractAluno.preencherTabela(responsaveis);

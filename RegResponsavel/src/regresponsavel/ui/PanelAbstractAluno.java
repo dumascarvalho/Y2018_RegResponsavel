@@ -217,10 +217,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         tbResponsaveis.setModel(modeloTabela);
     }
     
-    protected void acaoAdicionar() {
-        JFrame frame = new FrameCadastrarResponsavel(aluno);
-        frame.setVisible(true);
-    }
+    abstract void acaoAdicionar();
     
     protected void acaoRemover() {
         try {
