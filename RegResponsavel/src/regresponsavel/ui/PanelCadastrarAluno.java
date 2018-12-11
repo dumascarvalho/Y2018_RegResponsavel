@@ -86,10 +86,8 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
     }
 
     @Override
-    public void acaoRemover() {
-        
-        responsaveis = aluno.getResponsavel();
-        
+    public void acaoRemover() {        
+        responsaveis = aluno.getResponsavel();        
         try {
             int linhaSelecionada;
             if ((linhaSelecionada = tbResponsaveis.getSelectedRow()) != -1) {

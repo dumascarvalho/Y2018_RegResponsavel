@@ -180,7 +180,7 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
             PanelAbstractAluno.preencherTabela(responsaveis);
             this.dispose();
         } catch (Exception e) {
-            System.out.println("Exceção: " + e);
+            JOptionPane.showMessageDialog(this, "Ocorre um erro ao inserir o responsável.", "Mensagem", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btInserirActionPerformed
 

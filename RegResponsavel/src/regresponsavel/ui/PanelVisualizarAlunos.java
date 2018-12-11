@@ -2,19 +2,19 @@ package regresponsavel.ui;
 
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import regresponsavel.controller.AlunoController;
 import regresponsavel.model.AlunoModel;
 
 public class PanelVisualizarAlunos extends javax.swing.JPanel {
 
-    private final List<AlunoModel> alunos;
+    private List<AlunoModel> alunos;
     private final AlunoController ac = new AlunoController();
     
     public PanelVisualizarAlunos() {
         initComponents();
-        this.alunos = ac.recuperar();
-        preencherTabela(alunos);
+        obterTodosAlunos();
     }
 
     @SuppressWarnings("unchecked")
@@ -111,10 +111,10 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbProcurar)
                         .addGap(18, 18, 18)
-                        .addComponent(tfProntuarioProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfProntuarioProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btProcurarAluno)
-                        .addContainerGap(187, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -158,9 +158,25 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void obterTodosAlunos() {
+        alunos = ac.recuperar();
+        preencherTabela(alunos);
+    }
+    
     private void preencherTabela(List<AlunoModel> alunos) {
         AlunosTableModel modeloTabela = new AlunosTableModel(alunos);
         tbAlunos.setModel(modeloTabela);
+    }
+    
+    private void abrirNovoPanel(AlunoModel aluno) {
+        JFrame alterarAluno = new JFrame();
+        alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
+        alterarAluno.setSize(this.getPreferredSize());
+        alterarAluno.pack();
+        alterarAluno.setLocationRelativeTo(null);
+        alterarAluno.setTitle("Alterar Cadastro do Aluno");
+        alterarAluno.setResizable(false);
+        alterarAluno.setVisible(true);
     }
     
     private void btOrdenarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarProntuarioActionPerformed
@@ -181,28 +197,51 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
             if ((linhaSelecionada = tbAlunos.getSelectedRow()) != -1) {
                 AlunoModel aluno;
                 aluno = alunos.get(linhaSelecionada);
-                JFrame alterarAluno = new JFrame();
-                alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
-                alterarAluno.setSize(this.getPreferredSize());
-                alterarAluno.pack();
-                alterarAluno.setLocationRelativeTo(null);
-                alterarAluno.setTitle("Alterar Cadastro do Aluno");
-                alterarAluno.setResizable(false);
-                alterarAluno.setVisible(true);
+                abrirNovoPanel(aluno);
             } else {
-                System.out.println("Nenhum aluno foi selecionado.");
+                JOptionPane.showMessageDialog(this, "Nenhum aluno foi selecionado, favor tentar novamente!", "Mensagem", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
-            System.out.println("Houve um erro.");
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao abrir o painél de alterações do aluno.", "Mensagem", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_btAlterarAlunoActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-
+        try {
+            int linhaSelecionada;
+            if ((linhaSelecionada = tbAlunos.getSelectedRow()) != -1) {
+                AlunoModel aluno;
+                aluno = alunos.get(linhaSelecionada);
+                ac.remover(aluno);
+                obterTodosAlunos();
+                JOptionPane.showMessageDialog(this, "O aluno foi removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum aluno foi selecionado, favor tentar novamente!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao remover o aluno selecionado.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+        }   
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btProcurarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcurarAlunoActionPerformed
-
+        try {
+            String filtro = tfProntuarioProcurar.getText();            
+            AlunoModel modelo;
+            modelo = ac.obter(filtro);
+            if (modelo != null) {
+                alunos.clear();
+                alunos.add(modelo);            
+                preencherTabela(alunos);     
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum aluno foi encontrado, favor tentar novamente!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                tfProntuarioProcurar.setText("");
+                tfProntuarioProcurar.grabFocus();
+                obterTodosAlunos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao buscar pelo aluno informado.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btProcurarAlunoActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed

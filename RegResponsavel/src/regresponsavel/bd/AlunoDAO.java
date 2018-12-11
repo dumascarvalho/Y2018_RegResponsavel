@@ -18,7 +18,7 @@ public class AlunoDAO implements IAlunoDAO {
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
-            throw new RuntimeException("Exceção: " + e);
+            throw new RuntimeException(e);
         } finally {
             em.close();
         }    
@@ -33,7 +33,7 @@ public class AlunoDAO implements IAlunoDAO {
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
-            throw new RuntimeException("Exceção: " + e);
+            throw new RuntimeException(e);
         } finally {
             em.close();
         }
@@ -44,11 +44,11 @@ public class AlunoDAO implements IAlunoDAO {
         try {
             em = ConnectionFactory.obterConexao();              
             em.getTransaction().begin();
-            em.remove(a);
+            em.remove(em.getReference(AlunoModel.class, a.getCodigoPessoa()));
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
-            throw new RuntimeException("Exceção: " + e);
+            throw new RuntimeException(e);
         } finally {
             em.close();
         }
@@ -61,7 +61,7 @@ public class AlunoDAO implements IAlunoDAO {
             Query q = em.createQuery("select object(a) from AlunoModel as a");
             return q.getResultList();
         } catch (Exception e)  {
-            throw new RuntimeException("Exceção: " + e);
+            throw new RuntimeException(e);
         } finally {
             em.close();
         }
@@ -83,7 +83,6 @@ public class AlunoDAO implements IAlunoDAO {
                 return null;
             }
         } catch (Exception e)  {
-            e.printStackTrace();
             return null;
         } finally {
             em.close();

@@ -18,7 +18,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
-            throw new RuntimeException("Exceção: " + e);
+            throw new RuntimeException(e);
         } finally {
             em.close();
         }
@@ -33,7 +33,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             em.getTransaction().commit();
         } catch (Exception e)  {
             em.getTransaction().rollback();
-            throw new RuntimeException("Exceção: " + e);
+            throw new RuntimeException(e);
         } finally {
             em.close();
         }
@@ -51,7 +51,6 @@ public class UsuarioDAO implements IUsuarioDAO {
             em.getTransaction().commit();
             return (usuarios != null && !usuarios.isEmpty());
         } catch (Exception e)  {
-            e.printStackTrace();
             return false;
         } finally {
             em.close();
@@ -65,7 +64,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             UsuarioModel u = em.find(UsuarioModel.class, prontuario);
             return u;
         } catch (Exception e)  {
-            throw new RuntimeException("Exceção: " + e);
+            throw new RuntimeException(e);
         } finally {
             em.close();
         }    
