@@ -196,11 +196,11 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbResponsaveis)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                         .addComponent(btAdicionar)
-                        .addGap(13, 13, 13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btRemover))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
@@ -209,12 +209,7 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
                 .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
-    static void preencherTabela(List r) {
-        ResponsaveisTableModel modeloTabela = new ResponsaveisTableModel(r);
-        tbResponsaveis.setModel(modeloTabela);
-    }
-    
+  
     abstract void acaoAdicionar(); // 1 para Cadastrar Aluno e 2 para Alterar Aluno
     
     abstract void acaoRemover();
@@ -231,7 +226,12 @@ public abstract class PanelAbstractAluno extends javax.swing.JPanel {
         tfTelefone.setText("");
         tfProntuario.setText("");
         tfNome.grabFocus();
-    } 
+    }
+    
+    static void preencherTabela(List r) {
+        ResponsaveisTableModel modeloTabela = new ResponsaveisTableModel(r);
+        tbResponsaveis.setModel(modeloTabela);
+    }
     
     private void btAbstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbstractActionPerformed
         acaoAluno();

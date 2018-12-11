@@ -10,7 +10,7 @@ import regresponsavel.model.ResponsavelModel;
 public class PanelAlterarAluno extends PanelAbstractAluno {
     
     private final int tipo;
-    
+   
     public PanelAlterarAluno() {
         super();
         this.tipo = 1; // Alterar Alunos do Menu Principal
@@ -46,6 +46,8 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
     } 
     
     private void limparTudo() {
+        btAdicionar.setEnabled(false);
+        btRemover.setEnabled(false);
         tfNome.setText("");
         tfNome.setEnabled(false);
         tfDataNascimento.setText("");
@@ -55,9 +57,14 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         tfProntuario.setText("");
         tfProntuario.setEnabled(true);
         tfProntuario.grabFocus();
+        AlunoModel modelo = new AlunoModel(); 
+        responsaveis = rc.recuperar(modelo);
+        preencherTabela(responsaveis);
     }
     
     private void preencherCampos() {
+        btAdicionar.setEnabled(true);
+        btRemover.setEnabled(true);
         tfNome.setText(aluno.getNome());
         tfNome.setEnabled(true);
         tfDataNascimento.setText(aluno.getDataNascimento());
@@ -66,9 +73,9 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         tfTelefone.setEnabled(true);
         tfProntuario.setText(aluno.getProntuario());
         tfProntuario.setEnabled(false);
-        tfNome.grabFocus();
         responsaveis = rc.recuperar(aluno);
         preencherTabela(responsaveis);
+        tfNome.grabFocus();
     }
     
     @Override
@@ -142,6 +149,7 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
             if((linhaSelecionada = tbResponsaveis.getSelectedRow()) != -1) {
                 rc.remover(responsaveis.get(linhaSelecionada));
                 responsaveis.remove(linhaSelecionada);
+                aluno.setResponsavel(responsaveis);
                 preencherTabela(responsaveis);
                 JOptionPane.showMessageDialog(this, "Responsável removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);   
             } else {

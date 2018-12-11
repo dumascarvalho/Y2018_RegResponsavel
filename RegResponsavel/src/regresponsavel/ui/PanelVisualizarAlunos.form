@@ -35,7 +35,7 @@
                                   <Component id="btOrdenarProntuario" max="32767" attributes="0"/>
                                   <Component id="btOrdenarResponsavel" alignment="1" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btAlterarAluno" min="-2" pref="93" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btRemover" min="-2" pref="93" max="-2" attributes="0"/>
@@ -43,7 +43,7 @@
                               <Component id="btCancelar" min="-2" pref="93" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lbTitulo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jsBarraRolagem" alignment="0" pref="529" max="32767" attributes="0"/>
+                          <Component id="jsBarraRolagem" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
@@ -92,7 +92,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btOrdenarProntuario">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ordernar por Prontu&#xe1;rio"/>
+        <Property name="text" type="java.lang.String" value="Ordernar por Prontu&#xe1;rio do Aluno"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOrdenarProntuarioActionPerformed"/>
@@ -100,7 +100,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btOrdenarResponsavel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ordernar por Respons&#xe1;vel"/>
+        <Property name="text" type="java.lang.String" value="Ordernar por Maior Qnt. de Respons&#xe1;veis"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOrdenarResponsavelActionPerformed"/>
@@ -108,7 +108,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btOrdenarNome">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ordernar por Nome"/>
+        <Property name="text" type="java.lang.String" value="Ordernar por Nome do Aluno"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOrdenarNomeActionPerformed"/>

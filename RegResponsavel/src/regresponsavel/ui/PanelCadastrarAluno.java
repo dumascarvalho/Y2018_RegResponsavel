@@ -15,7 +15,7 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
         btAbstract.setText("Cadastrar");
         tfProntuario.setEnabled(true);
         btPesquisar.setVisible(false);        
-        reinicializar();
+        limparTudo();
     }
     
     private void reinicializar() {

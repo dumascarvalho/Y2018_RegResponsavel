@@ -47,10 +47,14 @@ public class AlunoModel extends PessoaModel {
 
     public void setResponsavel(List<ResponsavelModel> responsavel) {
         this.responsavel = responsavel;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public void adicionarResponsavel(ResponsavelModel r) {
         responsavel.add(r);
         r.setAluno(this);
+        this.setChanged();
+        this.notifyObservers();
     }
 }

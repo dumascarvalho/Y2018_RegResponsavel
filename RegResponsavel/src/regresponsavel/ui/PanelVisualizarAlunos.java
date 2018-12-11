@@ -1,16 +1,21 @@
 package regresponsavel.ui;
 
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import regresponsavel.controller.AlunoController;
 import regresponsavel.model.AlunoModel;
+import regresponsavel.model.ComparadorAlunosPorProntuario;
+import regresponsavel.model.ComparadorResponsaveisPorQuantidade;
 
 public class PanelVisualizarAlunos extends javax.swing.JPanel {
 
     private List<AlunoModel> alunos;
     private final AlunoController ac = new AlunoController();
+    private final JFrame alterarAluno = new JFrame();
     
     public PanelVisualizarAlunos() {
         initComponents();
@@ -38,21 +43,21 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitulo.setText("Visualização de Alunos");
 
-        btOrdenarProntuario.setText("Ordernar por Prontuário");
+        btOrdenarProntuario.setText("Ordernar por Prontuário do Aluno");
         btOrdenarProntuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btOrdenarProntuarioActionPerformed(evt);
             }
         });
 
-        btOrdenarResponsavel.setText("Ordernar por Responsável");
+        btOrdenarResponsavel.setText("Ordernar por Maior Qnt. de Responsáveis");
         btOrdenarResponsavel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btOrdenarResponsavelActionPerformed(evt);
             }
         });
 
-        btOrdenarNome.setText("Ordernar por Nome");
+        btOrdenarNome.setText("Ordernar por Nome do Aluno");
         btOrdenarNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btOrdenarNomeActionPerformed(evt);
@@ -122,14 +127,14 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
                                     .addComponent(btOrdenarNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btOrdenarProntuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btOrdenarResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btAlterarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jsBarraRolagem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE))
+                            .addComponent(jsBarraRolagem, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
@@ -168,27 +173,40 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
         tbAlunos.setModel(modeloTabela);
     }
     
-    private void abrirNovoPanel(AlunoModel aluno) {
-        JFrame alterarAluno = new JFrame();
-        alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
-        alterarAluno.setSize(this.getPreferredSize());
-        alterarAluno.pack();
-        alterarAluno.setLocationRelativeTo(null);
-        alterarAluno.setTitle("Alterar Cadastro do Aluno");
-        alterarAluno.setResizable(false);
-        alterarAluno.setVisible(true);
+    private void abrirAlterarAluno(AlunoModel aluno) {
+        if (!alterarAluno.isVisible()) {
+            alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
+            alterarAluno.setSize(this.getPreferredSize());
+            alterarAluno.pack();
+            alterarAluno.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            alterarAluno.setLocationRelativeTo(null);
+            alterarAluno.setTitle("Alterar Cadastro do Aluno");
+            alterarAluno.setResizable(false);
+            alterarAluno.setVisible(true);
+        } else {
+            alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
+            alterarAluno.validate();
+            alterarAluno.setLocationRelativeTo(null);
+            alterarAluno.requestFocus();
+        }
     }
     
     private void btOrdenarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarProntuarioActionPerformed
-
+        alunos = ac.recuperar();
+        alunos.sort(new ComparadorAlunosPorProntuario());
+        preencherTabela(alunos);
     }//GEN-LAST:event_btOrdenarProntuarioActionPerformed
 
     private void btOrdenarResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarResponsavelActionPerformed
-
+        alunos = ac.recuperar();
+        alunos.sort(new ComparadorResponsaveisPorQuantidade());
+        preencherTabela(alunos);
     }//GEN-LAST:event_btOrdenarResponsavelActionPerformed
 
     private void btOrdenarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarNomeActionPerformed
-
+        alunos = ac.recuperar();
+        Collections.sort(alunos);
+        preencherTabela(alunos);
     }//GEN-LAST:event_btOrdenarNomeActionPerformed
 
     private void btAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarAlunoActionPerformed
@@ -197,7 +215,7 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
             if ((linhaSelecionada = tbAlunos.getSelectedRow()) != -1) {
                 AlunoModel aluno;
                 aluno = alunos.get(linhaSelecionada);
-                abrirNovoPanel(aluno);
+                abrirAlterarAluno(aluno);
             } else {
                 JOptionPane.showMessageDialog(this, "Nenhum aluno foi selecionado, favor tentar novamente!", "Mensagem", JOptionPane.WARNING_MESSAGE);
             }

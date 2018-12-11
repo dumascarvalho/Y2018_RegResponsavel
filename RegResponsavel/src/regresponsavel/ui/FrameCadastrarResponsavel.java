@@ -1,6 +1,5 @@
 package regresponsavel.ui;
 
-import java.util.List;
 import javax.swing.JOptionPane;
 import regresponsavel.controller.ResponsavelController;
 import regresponsavel.model.AlunoModel;
@@ -168,16 +167,15 @@ public class FrameCadastrarResponsavel extends javax.swing.JFrame {
             responsavel.setDataNascimento(tfDataNascimento.getText());
             responsavel.setTelefone(tfTelefone.getText());
             responsavel.setAluno(aluno);
-            aluno.adicionarResponsavel(responsavel);    
-            List<ResponsavelModel> responsaveis = aluno.getResponsavel();
+            aluno.adicionarResponsavel(responsavel);
             
             if (tipo == 2) {
                 ResponsavelController rc = new ResponsavelController();
                 rc.cadastrar(responsavel);
-            }  
+            }
             
+            PanelAbstractAluno.preencherTabela(aluno.getResponsavel());            
             JOptionPane.showMessageDialog(this, "Responsável inserido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-            PanelAbstractAluno.preencherTabela(responsaveis);
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocorre um erro ao inserir o responsável.", "Mensagem", JOptionPane.ERROR_MESSAGE);

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
-public class UsuarioModel implements Serializable, Comparable<UsuarioModel> {
+public class UsuarioModel implements Serializable {
     
     @Id
     private String prontuario;    
@@ -46,10 +46,5 @@ public class UsuarioModel implements Serializable, Comparable<UsuarioModel> {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-    
-    @Override
-    public int compareTo(UsuarioModel u) {
-        return this.getNome().compareTo(u.getNome());
     }
 }
