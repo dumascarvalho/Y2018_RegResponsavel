@@ -62,6 +62,8 @@ public class PessoaModel extends Observable implements Serializable, Comparable<
 
     public void setCodigoPessoa(int codigoPessoa) {
         this.codigoPessoa = codigoPessoa;
+        this.setChanged();
+        this.notifyObservers();
     }
     
     @Override

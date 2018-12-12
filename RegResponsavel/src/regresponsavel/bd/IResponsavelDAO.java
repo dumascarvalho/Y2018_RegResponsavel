@@ -13,4 +13,6 @@ public interface IResponsavelDAO {
     public abstract void removerResponsavel(ResponsavelModel r);
     
     public abstract List obterResponsaveis(AlunoModel a);
+    
+    public abstract List obterTodosResponsaveis();
 }

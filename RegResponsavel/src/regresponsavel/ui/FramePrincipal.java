@@ -6,6 +6,7 @@ import regresponsavel.model.UsuarioModel;
 public class FramePrincipal extends javax.swing.JFrame {
 
     private final UsuarioModel usuario;
+    private final JFrame alterarAluno = new JFrame();
 
     public FramePrincipal(UsuarioModel u) {
         initComponents();
@@ -17,6 +18,24 @@ public class FramePrincipal extends javax.swing.JFrame {
         this.setSize(this.getPreferredSize());
         this.pack();
         this.setLocationRelativeTo(null);
+    }
+    
+    private void abrirAlterarAluno() {        
+        if (!alterarAluno.isVisible()) {
+            alterarAluno.setContentPane(new PanelAlterarAluno());
+            alterarAluno.setSize(this.getPreferredSize());
+            alterarAluno.pack();
+            alterarAluno.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            alterarAluno.setLocationRelativeTo(null);
+            alterarAluno.setTitle("Alterar Cadastro do Aluno");
+            alterarAluno.setResizable(false);
+            alterarAluno.setVisible(true);
+        } else {
+            alterarAluno.setContentPane(new PanelAlterarAluno());
+            alterarAluno.validate();
+            alterarAluno.setLocationRelativeTo(null);
+            alterarAluno.requestFocus();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -93,9 +112,19 @@ public class FramePrincipal extends javax.swing.JFrame {
         mnRelatorios.setText("Relatórios");
 
         mnRelatorioAlunos.setText("Relatório de Alunos Cadastrados");
+        mnRelatorioAlunos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRelatorioAlunosActionPerformed(evt);
+            }
+        });
         mnRelatorios.add(mnRelatorioAlunos);
 
         mnRelatorioResponsaveisAluno.setText("Relatório de Responsáveis e Alunos");
+        mnRelatorioResponsaveisAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRelatorioResponsaveisAlunoActionPerformed(evt);
+            }
+        });
         mnRelatorios.add(mnRelatorioResponsaveisAluno);
 
         bmBarraMenu.add(mnRelatorios);
@@ -174,15 +203,16 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnVisualizarAlunosActionPerformed
 
     private void mmAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmAlterarAlunoActionPerformed
-        JFrame alterarAluno = new JFrame();
-        alterarAluno.setContentPane(new PanelAlterarAluno());
-        alterarAluno.setSize(this.getPreferredSize());
-        alterarAluno.pack();
-        alterarAluno.setLocationRelativeTo(null);
-        alterarAluno.setTitle("Alterar Cadastro do Aluno");
-        alterarAluno.setResizable(false);
-        alterarAluno.setVisible(true);
+        abrirAlterarAluno();
     }//GEN-LAST:event_mmAlterarAlunoActionPerformed
+
+    private void mnRelatorioAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelatorioAlunosActionPerformed
+        new RelatorioHelper().gerarRelatorioAlunos();
+    }//GEN-LAST:event_mnRelatorioAlunosActionPerformed
+
+    private void mnRelatorioResponsaveisAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelatorioResponsaveisAlunoActionPerformed
+        new RelatorioHelper().gerarRelatorioResponsaveis();
+    }//GEN-LAST:event_mnRelatorioResponsaveisAlunoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar bmBarraMenu;

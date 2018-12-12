@@ -1,13 +1,25 @@
 package regresponsavel.ui;
 
+import java.util.Collections;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import regresponsavel.controller.AlunoController;
 import regresponsavel.model.AlunoModel;
+import regresponsavel.model.ComparadorAlunosPorProntuario;
+import regresponsavel.model.ComparadorResponsaveisPorQuantidade;
 
 public class PanelVisualizarAlunos extends javax.swing.JPanel {
 
+    private List<AlunoModel> alunos;
+    private final AlunoController ac = new AlunoController();
+    private final JFrame alterarAluno = new JFrame();
+    
     public PanelVisualizarAlunos() {
         initComponents();
+        obterTodosAlunos();
     }
 
     @SuppressWarnings("unchecked")
@@ -31,21 +43,21 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitulo.setText("Visualização de Alunos");
 
-        btOrdenarProntuario.setText("Ordernar por Prontuário");
+        btOrdenarProntuario.setText("Ordernar por Prontuário do Aluno");
         btOrdenarProntuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btOrdenarProntuarioActionPerformed(evt);
             }
         });
 
-        btOrdenarResponsavel.setText("Ordernar por Responsável");
+        btOrdenarResponsavel.setText("Ordernar por Maior Qnt. de Responsáveis");
         btOrdenarResponsavel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btOrdenarResponsavelActionPerformed(evt);
             }
         });
 
-        btOrdenarNome.setText("Ordernar por Nome");
+        btOrdenarNome.setText("Ordernar por Nome do Aluno");
         btOrdenarNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btOrdenarNomeActionPerformed(evt);
@@ -79,34 +91,10 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
 
         tbAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Prontuário", "Nome", "Responsável"
+
             }
         ));
         jsBarraRolagem.setViewportView(tbAlunos);
@@ -128,10 +116,10 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbProcurar)
                         .addGap(18, 18, 18)
-                        .addComponent(tfProntuarioProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfProntuarioProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btProcurarAluno)
-                        .addContainerGap(187, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -139,14 +127,14 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
                                     .addComponent(btOrdenarNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btOrdenarProntuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btOrdenarResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btAlterarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jsBarraRolagem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE))
+                            .addComponent(jsBarraRolagem, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
@@ -175,37 +163,103 @@ public class PanelVisualizarAlunos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void obterTodosAlunos() {
+        alunos = ac.recuperar();
+        preencherTabela(alunos);
+    }
+    
+    private void preencherTabela(List<AlunoModel> alunos) {
+        AlunosTableModel modeloTabela = new AlunosTableModel(alunos);
+        tbAlunos.setModel(modeloTabela);
+    }
+    
+    private void abrirAlterarAluno(AlunoModel aluno) {
+        if (!alterarAluno.isVisible()) {
+            alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
+            alterarAluno.setSize(this.getPreferredSize());
+            alterarAluno.pack();
+            alterarAluno.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            alterarAluno.setLocationRelativeTo(null);
+            alterarAluno.setTitle("Alterar Cadastro do Aluno");
+            alterarAluno.setResizable(false);
+            alterarAluno.setVisible(true);
+        } else {
+            alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
+            alterarAluno.validate();
+            alterarAluno.setLocationRelativeTo(null);
+            alterarAluno.requestFocus();
+        }
+    }
+    
     private void btOrdenarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarProntuarioActionPerformed
-
+        alunos = ac.recuperar();
+        alunos.sort(new ComparadorAlunosPorProntuario());
+        preencherTabela(alunos);
     }//GEN-LAST:event_btOrdenarProntuarioActionPerformed
 
     private void btOrdenarResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarResponsavelActionPerformed
-
+        alunos = ac.recuperar();
+        alunos.sort(new ComparadorResponsaveisPorQuantidade());
+        preencherTabela(alunos);
     }//GEN-LAST:event_btOrdenarResponsavelActionPerformed
 
     private void btOrdenarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrdenarNomeActionPerformed
-
+        alunos = ac.recuperar();
+        Collections.sort(alunos);
+        preencherTabela(alunos);
     }//GEN-LAST:event_btOrdenarNomeActionPerformed
 
     private void btAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarAlunoActionPerformed
-        AlunoModel aluno = new AlunoModel();
-        
-        JFrame alterarAluno = new JFrame();
-        alterarAluno.setContentPane(new PanelAlterarAluno(aluno));
-        alterarAluno.setSize(this.getPreferredSize());
-        alterarAluno.pack();
-        alterarAluno.setLocationRelativeTo(null);
-        alterarAluno.setTitle("Alterar Cadastro do Aluno");
-        alterarAluno.setResizable(false);
-        alterarAluno.setVisible(true);
+        try {
+            int linhaSelecionada;
+            if ((linhaSelecionada = tbAlunos.getSelectedRow()) != -1) {
+                AlunoModel aluno;
+                aluno = alunos.get(linhaSelecionada);
+                abrirAlterarAluno(aluno);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum aluno foi selecionado, favor tentar novamente!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao abrir o painél de alterações do aluno.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+        }        
     }//GEN-LAST:event_btAlterarAlunoActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
-
+        try {
+            int linhaSelecionada;
+            if ((linhaSelecionada = tbAlunos.getSelectedRow()) != -1) {
+                AlunoModel aluno;
+                aluno = alunos.get(linhaSelecionada);
+                ac.remover(aluno);
+                obterTodosAlunos();
+                JOptionPane.showMessageDialog(this, "O aluno foi removido com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum aluno foi selecionado, favor tentar novamente!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao remover o aluno selecionado.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+        }   
     }//GEN-LAST:event_btRemoverActionPerformed
 
     private void btProcurarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcurarAlunoActionPerformed
-
+        try {
+            String filtro = tfProntuarioProcurar.getText();            
+            AlunoModel modelo;
+            modelo = ac.obter(filtro);
+            if (modelo != null) {
+                alunos.clear();
+                alunos.add(modelo);            
+                preencherTabela(alunos);     
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum aluno foi encontrado, favor tentar novamente!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+                tfProntuarioProcurar.setText("");
+                tfProntuarioProcurar.grabFocus();
+                obterTodosAlunos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao buscar pelo aluno informado.", "Mensagem", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btProcurarAlunoActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed

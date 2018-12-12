@@ -19,6 +19,7 @@ public class ResponsaveisTableModel extends AbstractTableModel implements Observ
         
         while (i.hasNext()) {
             ResponsavelModel responsavel = i.next();
+            responsavel.getAluno().addObserver(this);
             responsavel.addObserver(this);
         }
     }

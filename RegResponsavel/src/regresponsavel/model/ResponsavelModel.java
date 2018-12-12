@@ -25,5 +25,7 @@ public class ResponsavelModel extends PessoaModel {
 
     public void setAluno(AlunoModel aluno) {
         this.aluno = aluno;
+        this.setChanged();
+        this.notifyObservers();
     }   
 }

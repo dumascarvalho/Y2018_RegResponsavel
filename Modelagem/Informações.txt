@@ -1,0 +1,20 @@
+Descrição do Trabalho Disciplinar de Programação Orientada a Objetos
+
+Sistema: RegResponsável - Um sistema para registro de responsáveis de alunos.
+
+Objetivo: implementação de um programa utilizando os conhecimentos assimilados na disciplina.
+
+Grupo: Dumas Morais de Carvalho e Maria Eduarda de Oliveira Silva
+
+Repositório: https://github.com/dumascarvalho/Y2018_RegResponsavel
+
+Especificação: o grupo deverá escolher UMA das opções apresentadas pelo professor. Cada uma das opções de programa possui a modelagem a nível de análise e as interfaces de usuários já programadas em linguagem Java.
+
+Critérios de Avaliação: implementação de todos os casos de uso definidos, programa funcional e sem erros de compilação, atendendo aos princípios de orientação a objetos, uso de interfaces entre as camadas, com uma boa distribuição de responsabilidades entre as classes.
+
+Observações: O grupo deverá definir a arquitetura da aplicação (2 camadas, 3 camadas) e seguir uma arquitetura única. Poderão decidir qual tecnologia utilizar no banco de dados (JDBC ou Hibernate). Não é necessário alteração na interface de usuário em relação ao design das telas (não será avaliada qualquer modificação).
+
+Datas das Entregas:
+
+1ª Entrega - 27/11/2018
+2ª Entrega - 12/12/2018
