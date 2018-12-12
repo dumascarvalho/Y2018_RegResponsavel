@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioChamadas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a95e2a38-3eec-462f-bce5-5c8f47e77644">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="aluno.nome" class="java.lang.String"/>
+	<field name="telefone" class="java.lang.String"/>
+	<field name="aluno.prontuario" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="380" height="37" uuid="137b39c6-3bf7-4398-910a-2ace98482c74"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsáveis e Alunos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="150" height="20" uuid="824d497d-5d4b-48fc-9cb7-f3eb931eb445"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Responsável:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="140" height="20" uuid="69475f62-1ef5-4e6f-9a89-b1248cebaee9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6dfa28d-41e9-45ee-8634-4f8316ffa475"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="100" height="20" uuid="41964d61-14d3-4b4a-98bd-519e49af8894">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="99115616-5633-4510-a71d-340744d417e5"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="0" width="141" height="20" uuid="075f3ed6-eef9-44d0-8c79-947d3b3c1c98">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6e67585-4556-4813-affd-14c7c9097b6e"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prontuário do Aluno:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="150" height="20" uuid="2fed046f-37e6-4524-a66e-259be9954cde"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="140" height="20" uuid="4fec733a-7f2b-4f0c-9619-d7560ea13602">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6dfa28d-41e9-45ee-8634-4f8316ffa475"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{aluno.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="100" height="20" uuid="026d3bdf-29a1-40d3-aef3-b1c7c2e2671f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="99115616-5633-4510-a71d-340744d417e5"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="141" height="20" uuid="56e29986-ac66-4d0f-a753-583772f98cbb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e6e67585-4556-4813-affd-14c7c9097b6e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{aluno.prontuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="500" y="0" width="61" height="30" uuid="30bac831-ede1-435d-8b73-be2007ae6c68"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="0" width="120" height="30" uuid="cfe42760-5a99-416c-8388-3b4f737b437c"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Responsáveis:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

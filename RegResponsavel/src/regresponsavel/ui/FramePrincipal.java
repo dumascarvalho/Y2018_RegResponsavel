@@ -112,9 +112,19 @@ public class FramePrincipal extends javax.swing.JFrame {
         mnRelatorios.setText("Relatórios");
 
         mnRelatorioAlunos.setText("Relatório de Alunos Cadastrados");
+        mnRelatorioAlunos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRelatorioAlunosActionPerformed(evt);
+            }
+        });
         mnRelatorios.add(mnRelatorioAlunos);
 
         mnRelatorioResponsaveisAluno.setText("Relatório de Responsáveis e Alunos");
+        mnRelatorioResponsaveisAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRelatorioResponsaveisAlunoActionPerformed(evt);
+            }
+        });
         mnRelatorios.add(mnRelatorioResponsaveisAluno);
 
         bmBarraMenu.add(mnRelatorios);
@@ -195,6 +205,14 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void mmAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmAlterarAlunoActionPerformed
         abrirAlterarAluno();
     }//GEN-LAST:event_mmAlterarAlunoActionPerformed
+
+    private void mnRelatorioAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelatorioAlunosActionPerformed
+        new RelatorioHelper().gerarRelatorioAlunos();
+    }//GEN-LAST:event_mnRelatorioAlunosActionPerformed
+
+    private void mnRelatorioResponsaveisAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelatorioResponsaveisAlunoActionPerformed
+        new RelatorioHelper().gerarRelatorioResponsaveis();
+    }//GEN-LAST:event_mnRelatorioResponsaveisAlunoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar bmBarraMenu;

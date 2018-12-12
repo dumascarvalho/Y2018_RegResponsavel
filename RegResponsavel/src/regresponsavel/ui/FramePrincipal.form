@@ -49,11 +49,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Alunos Cadastrados"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnRelatorioAlunosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnRelatorioResponsaveisAluno">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Respons&#xe1;veis e Alunos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnRelatorioResponsaveisAlunoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

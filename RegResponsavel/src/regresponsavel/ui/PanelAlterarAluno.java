@@ -58,7 +58,7 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         tfProntuario.setEnabled(true);
         tfProntuario.grabFocus();
         AlunoModel modelo = new AlunoModel(); 
-        responsaveis = rc.recuperar(modelo);
+        responsaveis = rc.obterResponsaveis(modelo);
         preencherTabela(responsaveis);
     }
     
@@ -73,7 +73,7 @@ public class PanelAlterarAluno extends PanelAbstractAluno {
         tfTelefone.setEnabled(true);
         tfProntuario.setText(aluno.getProntuario());
         tfProntuario.setEnabled(false);
-        responsaveis = rc.recuperar(aluno);
+        responsaveis = rc.obterResponsaveis(aluno);
         preencherTabela(responsaveis);
         tfNome.grabFocus();
     }

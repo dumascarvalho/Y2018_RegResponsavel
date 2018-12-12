@@ -25,7 +25,11 @@ public class ResponsavelController {
         dao.removerResponsavel(r);
     }
     
-    public List recuperar(AlunoModel a) {
+    public List obterResponsaveis(AlunoModel a) {
         return dao.obterResponsaveis(a);
+    }
+    
+    public List recuperar() {
+        return dao.obterTodosResponsaveis();
     }
 }

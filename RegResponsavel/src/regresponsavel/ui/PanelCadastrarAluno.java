@@ -20,7 +20,7 @@ public class PanelCadastrarAluno extends PanelAbstractAluno {
     
     private void reinicializar() {
         aluno = new AlunoModel();
-        responsaveis = rc.recuperar(aluno);
+        responsaveis = rc.obterResponsaveis(aluno);
         preencherTabela(responsaveis);
     }
     

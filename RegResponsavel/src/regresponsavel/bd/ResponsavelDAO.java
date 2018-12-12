@@ -67,4 +67,17 @@ public class ResponsavelDAO implements IResponsavelDAO {
             em.close();
         }
     }
+
+    @Override
+    public List obterTodosResponsaveis() {
+        try {
+            em = ConnectionFactory.obterConexao();                    
+            Query q = em.createQuery("select object(r) from ResponsavelModel as r");
+            return q.getResultList();
+        } catch (Exception e)  {
+            throw new RuntimeException(e);
+        } finally {
+            em.close();
+        }
+    }
 }
